@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Driver extends AppUser {
+public final class Driver extends AppUser {
     private static float percentage = 0.7f;
     private Car car;
 
@@ -20,24 +20,24 @@ public class Driver extends AppUser {
         this.car = car;
     }
 
-    @Override
-    public Rating giveFeedback(AppUser user){
-        System.out.println("Hello, driver " + name + " " + surname);
-        System.out.println("Please give us a feedback about your client " +
-                user.getName() + " " + user.getSurname());
-        System.out.println("First put your mark, then add some comments");
-        Scanner input = new Scanner(System.in);
-        int mark = input.nextInt();
-        input.nextLine();
-        String comment = input.nextLine();
-
-        return new Rating(comment, mark);
-    }
+//    @Override
+//    public Rating giveFeedback(AppUser user){
+//        System.out.println("Hello, driver " + name + " " + surname);
+//        System.out.println("Please give us a feedback about your client " +
+//                user.getName() + " " + user.getSurname());
+//        System.out.println("First put your mark, then add some comments");
+//        Scanner input = new Scanner(System.in);
+//        int mark = input.nextInt();
+//        input.nextLine();
+//        String comment = input.nextLine();
+//
+//        return new Rating(comment, mark);
+//    }
 
     @Override
     public String toString() {
-        return "{" + name +
-                " " + surname +
+        return "{" + getName() +
+                " " + getSurname() +
                 ", car: " + car +
                 "}";
     }
@@ -47,12 +47,14 @@ public class Driver extends AppUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Driver driver = (Driver) o;
-        return Objects.equals(name, driver.name) && Objects.equals(surname, driver.surname) && Objects.equals(car, driver.car);
+        return Objects.equals(getName(), driver.getName()) &&
+                Objects.equals(getSurname(), driver.getSurname()) &&
+                Objects.equals(car, driver.car);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, car);
+        return Objects.hash(getName(), getSurname(), car);
     }
 
     public Car getCar() {

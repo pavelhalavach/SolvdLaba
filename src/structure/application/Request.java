@@ -1,12 +1,15 @@
 package structure.application;
+import structure.AppUser;
+import structure.FeedbackCollectable;
 import structure.RatingPrintable;
 import structure.taxipark.Driver;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Request implements RatingPrintable {
-    private static float multiplier = 8;
+    private static final float multiplier = 8;
     private float price;
     private Client client;
     private Driver driver;
@@ -14,29 +17,26 @@ public class Request implements RatingPrintable {
     private LocalDate date;
     private Rating driverFeedback;
     private Rating clientFeedback;
+    private final Service service;
 
     public Request(Client client, Driver driver, Path path, boolean wantFeedback) {
         this.client = client;
         this.driver = driver;
         this.path = path;
         this.date = LocalDate.now();
+        this.service = new Service();
         setPrice();
 
         if (wantFeedback) {
             System.out.println(this.toString());
-            askForDriverFeedback();
-            askForClientFeedback();
+            setFeedback();
         }
     }
 
-    public void askForDriverFeedback(){
-        driverFeedback = driver.giveFeedback(client);
-        client.addRating(driverFeedback);
-    }
-
-    public void askForClientFeedback(){
-        clientFeedback = client.giveFeedback(driver);
-        driver.addRating(clientFeedback);
+    public void setFeedback(){
+        Rating[] ratings = service.collectFeedback(client, driver);
+        clientFeedback = ratings[0];
+        driverFeedback = ratings[1];
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Request implements RatingPrintable {
         System.out.println("Rating of client " + client.toString() + ":");
         if (driverFeedback == null) System.out.println("there is no rating");
         else {
-            System.out.println(driverFeedback);
+            System.out.println(driverFeedback.toString());
         }
     }
 
@@ -123,9 +123,9 @@ public class Request implements RatingPrintable {
         return multiplier;
     }
 
-    public static void setMultiplier(float multiplier) {
-        Request.multiplier = multiplier;
-    }
+//    public static void setMultiplier(float multiplier) {
+//        Request.multiplier = multiplier;
+//    }
 
     public LocalDate getDate() {
         return date;

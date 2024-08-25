@@ -1,5 +1,6 @@
 package structure.taxipark;
 
+import structure.DriversReceivable;
 import structure.application.Request;
 import structure.taxipark.Accounting;
 import structure.taxipark.Assistant;
@@ -8,7 +9,7 @@ import structure.taxipark.Driver;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class TaxiPark {
+public class TaxiPark implements DriversReceivable {
     private String location;
     private Assistant assistant;
 //    private Driver[] drivers;
@@ -26,6 +27,7 @@ public class TaxiPark {
         return accounting.getIncomeAfterBills(requests, assistant);
     }
 
+    @Override
     public Driver[] getAllDrivers(){
         Driver[] drivers = new Driver[requests.length];
         int indicator = 0;

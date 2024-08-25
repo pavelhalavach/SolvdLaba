@@ -2,15 +2,28 @@ package structure;
 
 import structure.application.Rating;
 
-public abstract class AppUser extends Person implements RatingPrintable{
-    protected Rating[] ratings;
+public abstract class AppUser extends Person implements RatingOperatable{
+    private Rating[] ratings;
     public AppUser(String name, String surname) {
         super(name, surname);
     }
 
-    public abstract Rating giveFeedback(AppUser user);
+//    public abstract Rating giveFeedback(AppUser user);
 
-    public void addRating(Rating rating){
+    @Override
+    public final float calculateAvgRating(){
+        if (ratings == null) {
+            System.out.println("there is no rating");
+        }
+        int sum = 0;
+        for (var rating : ratings){
+            sum += rating.getMark();
+        }
+        return (float) (sum / ratings.length);
+    }
+
+    @Override
+    public final void addRating(Rating rating){
         if (this.ratings == null) {
             this.ratings = new Rating[]{rating};
         } else {
@@ -24,10 +37,10 @@ public abstract class AppUser extends Person implements RatingPrintable{
     }
 
     @Override
-    public void printRatings(){
+    public final void printRatings(){
         if (ratings == null) System.out.println("there is no rating");
         else {
-            System.out.println("Rating for " + name + " " + surname);
+            System.out.println("Rating for " + getName() + " " + getSurname());
             for (int i = 0; i < ratings.length; i++){
                 System.out.println(ratings[i].toString());
             }

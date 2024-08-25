@@ -5,7 +5,11 @@ import structure.application.Request;
 import java.util.Objects;
 
 public class Accounting {
-    private static float bill = 0.26f;
+    private static float bill;
+    static {
+        System.out.println("The bill is set to 26%");
+        bill = 0.26f;
+    }
     private float income;
 
     protected Accounting() {
@@ -56,9 +60,5 @@ public class Accounting {
         }
         income += assistant.getSalary();
         this.income = income;
-    }
-
-    public void setIncome(){
-
     }
 }

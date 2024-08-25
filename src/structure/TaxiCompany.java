@@ -6,7 +6,7 @@ import structure.taxipark.TaxiPark;
 
 import java.util.Arrays;
 
-public class TaxiCompany {
+public class TaxiCompany implements DriversReceivable{
     private TaxiPark[] taxiParks;
 
     public TaxiCompany(TaxiPark[] taxiParks) {
@@ -20,7 +20,8 @@ public class TaxiCompany {
         }
     }
 
-    private Driver[] getAllDrivers() {
+    @Override
+    public Driver[] getAllDrivers() {
         int length = 0;
         for (var taxiPark : taxiParks) {
             length += taxiPark.getAllDrivers().length;

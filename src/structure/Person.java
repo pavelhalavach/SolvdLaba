@@ -1,8 +1,8 @@
 package structure;
 
 public abstract class Person {
-    protected String name;
-    protected String surname;
+    private String name;
+    private String surname;
 
     public Person(String name, String surname) {
         this.name = name;
