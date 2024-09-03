@@ -1,4 +1,4 @@
-package org.solvd.structure.taxipark;
+package main.java.org.solvd.structure.taxipark;
 
 import java.time.LocalDate;
 import java.util.Objects;

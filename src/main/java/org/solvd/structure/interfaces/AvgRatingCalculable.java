@@ -1,6 +1,6 @@
-package org.solvd.structure.interfaces;
+package main.java.org.solvd.structure.interfaces;
 
-import org.solvd.structure.application.Rating;
+import main.java.org.solvd.structure.application.Rating;
 
 public interface AvgRatingCalculable {
     float calculateAvgRating();

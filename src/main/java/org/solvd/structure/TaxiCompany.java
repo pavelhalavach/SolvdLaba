@@ -1,29 +1,27 @@
-package org.solvd.structure;
+package main.java.org.solvd.structure;
 
-import org.solvd.structure.interfaces.DriversReceivable;
-import org.solvd.structure.taxipark.Driver;
-import org.solvd.structure.taxipark.TaxiPark;
+import main.java.org.solvd.structure.interfaces.DriversReceivable;
+import main.java.org.solvd.structure.taxipark.Driver;
+import main.java.org.solvd.structure.taxipark.TaxiPark;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
 public class TaxiCompany implements DriversReceivable {
     private TaxiPark[] taxiParks;
+    private static final Logger logger = LogManager.getRootLogger();
     static {
-        display();
-
+        logger.info("The Taxi Company was created");
+        logger.info("It has many TaxiParks");
+        logger.info("With information about location, accounting department, assistant " +
+                "and requests");
+        logger.info("Every request includes driver, client, path and price");
+        logger.info("Each request has a function to ask a feedback about the drive");
     }
 
     public TaxiCompany(TaxiPark[] taxiParks) {
         this.taxiParks = taxiParks;
-    }
-
-    public static void display(){
-        System.out.println("The Taxi Company was created");
-        System.out.println("It has many TaxiParks");
-        System.out.println("With information about location, accounting department, assistant" +
-                "and requests");
-        System.out.println("Every request includes driver, client, path and price");
-        System.out.println("Each request has a function to ask a feedback about the drive");
     }
 
     public void printAllDrivers(){

@@ -1,6 +1,6 @@
-package org.solvd.structure.interfaces;
+package main.java.org.solvd.structure.interfaces;
 
-import org.solvd.structure.taxipark.Driver;
+import main.java.org.solvd.structure.taxipark.Driver;
 
 public interface DriversReceivable {
     Driver[] getAllDrivers();

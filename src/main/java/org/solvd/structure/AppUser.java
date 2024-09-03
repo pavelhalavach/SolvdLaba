@@ -1,7 +1,7 @@
-package org.solvd.structure;
+package main.java.org.solvd.structure;
 
-import org.solvd.structure.application.Rating;
-import org.solvd.structure.interfaces.RatingOperatable;
+import main.java.org.solvd.structure.application.Rating;
+import main.java.org.solvd.structure.interfaces.RatingOperatable;
 
 public abstract class AppUser extends Person implements RatingOperatable {
     private Rating[] ratings;

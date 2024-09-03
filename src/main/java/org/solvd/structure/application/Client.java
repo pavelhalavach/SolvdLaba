@@ -1,6 +1,6 @@
-package org.solvd.structure.application;
+package main.java.org.solvd.structure.application;
 
-import org.solvd.structure.AppUser;
+import main.java.org.solvd.structure.AppUser;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -11,20 +11,6 @@ public final class Client extends AppUser {
     public Client(String name, String surname) {
         super(name, surname);
     }
-
-//    @Override
-//    public Rating giveFeedback(AppUser user){
-//        System.out.println("Hello, client " + name + " " + surname);
-//        System.out.println("Please give us a feedback about your driver " +
-//                user.getName() + " " + user.getSurname());
-//        System.out.println("First put your mark, then add some comments");
-//        Scanner input = new Scanner(System.in);
-//        int mark = input.nextInt();
-//        input.nextLine();
-//        String comment = input.nextLine();
-//
-//        return new Rating(comment, mark);
-//    }
 
     @Override
     public String toString() {

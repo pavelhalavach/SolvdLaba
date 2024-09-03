@@ -1,6 +1,7 @@
-package org.solvd.structure.application;
-import org.solvd.structure.interfaces.RatingPrintable;
-import org.solvd.structure.taxipark.Driver;
+package main.java.org.solvd.structure.application;
+import main.java.org.solvd.structure.exceptions.NoRatingException;
+import main.java.org.solvd.structure.interfaces.RatingPrintable;
+import main.java.org.solvd.structure.taxipark.Driver;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -14,14 +15,14 @@ public class Request implements RatingPrintable {
     private LocalDate date;
     private Rating driverFeedback;
     private Rating clientFeedback;
-    private final Service service;
+//    private final Service service;
 
     public Request(Client client, Driver driver, Path path, boolean wantFeedback) {
         this.client = client;
         this.driver = driver;
         this.path = path;
         this.date = LocalDate.now();
-        this.service = new Service();
+//        this.service = new Service();
         setPrice();
 
         if (wantFeedback) {
@@ -31,7 +32,7 @@ public class Request implements RatingPrintable {
     }
 
     public void setFeedback(){
-        Rating[] ratings = service.collectFeedback(client, driver);
+        Rating[] ratings = Service.collectFeedback(client, driver);
         clientFeedback = ratings[0];
         driverFeedback = ratings[1];
     }
@@ -39,14 +40,20 @@ public class Request implements RatingPrintable {
     @Override
     public void printRatings(){
         System.out.println("Rating of driver " + driver.toString() + ":");
-        if (clientFeedback == null) System.out.println("there is no rating");
-        else {
-            System.out.println(clientFeedback.toString());
+        try {
+            if (clientFeedback == null)
+                throw new NoRatingException();
+            System.out.println(clientFeedback);
+        } catch (NoRatingException e) {
+            System.out.println(e.getMessage());
         }
         System.out.println("Rating of client " + client.toString() + ":");
-        if (driverFeedback == null) System.out.println("there is no rating");
-        else {
-            System.out.println(driverFeedback.toString());
+        try {
+            if (driverFeedback == null)
+                throw new NoRatingException();
+            System.out.println(driverFeedback);
+        } catch (NoRatingException e) {
+            System.out.println(e.getMessage());
         }
     }
 

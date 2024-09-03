@@ -1,9 +1,9 @@
-package org.solvd.structure.taxipark;
+package main.java.org.solvd.structure.taxipark;
 
-import org.solvd.structure.AppUser;
-import org.solvd.structure.application.Client;
-import org.solvd.structure.application.Rating;
-import org.solvd.structure.application.Request;
+import main.java.org.solvd.structure.AppUser;
+import main.java.org.solvd.structure.application.Client;
+import main.java.org.solvd.structure.application.Rating;
+import main.java.org.solvd.structure.application.Request;
 
 import java.util.Arrays;
 import java.util.Objects;

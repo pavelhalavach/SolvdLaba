@@ -1,7 +1,7 @@
-package org.solvd.structure.taxipark;
+package main.java.org.solvd.structure.taxipark;
 
-import org.solvd.structure.interfaces.DriversReceivable;
-import org.solvd.structure.application.Request;
+import main.java.org.solvd.structure.interfaces.DriversReceivable;
+import main.java.org.solvd.structure.application.Request;
 
 import java.util.Arrays;
 import java.util.Objects;

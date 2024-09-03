@@ -1,12 +1,12 @@
-package org.solvd.structure.interfaces;
+package main.java.org.solvd.structure.interfaces;
 
-import org.solvd.structure.AppUser;
-import org.solvd.structure.application.Client;
-import org.solvd.structure.application.Rating;
-import org.solvd.structure.taxipark.Driver;
+import main.java.org.solvd.structure.AppUser;
+import main.java.org.solvd.structure.application.Client;
+import main.java.org.solvd.structure.application.Rating;
+import main.java.org.solvd.structure.taxipark.Driver;
 
 public interface FeedbackCollectable {
-    Rating[] collectFeedback(Client client, Driver driver);
-    Rating askForFeedback(AppUser user);
+//    static Rating[] collectFeedback(Client client, Driver driver);
+//    static Rating askForFeedback(AppUser user);
 
 }

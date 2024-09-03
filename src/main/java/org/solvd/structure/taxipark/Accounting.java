@@ -1,7 +1,7 @@
-package org.solvd.structure.taxipark;
+package main.java.org.solvd.structure.taxipark;
 
-import org.solvd.structure.interfaces.IncomeGettable;
-import org.solvd.structure.application.Request;
+import main.java.org.solvd.structure.interfaces.IncomeGettable;
+import main.java.org.solvd.structure.application.Request;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package org.solvd.structure;
+package main.java.org.solvd.structure;
 
 public abstract class Person {
     private String name;

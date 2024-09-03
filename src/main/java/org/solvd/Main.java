@@ -1,16 +1,19 @@
-package org.solvd;
+package main.java.org.solvd;
 
-import org.solvd.structure.taxipark.Car;
-import org.solvd.structure.TaxiCompany;
-import org.solvd.structure.application.Client;
-import org.solvd.structure.application.Path;
-import org.solvd.structure.application.Request;
-import org.solvd.structure.taxipark.Driver;
-import org.solvd.structure.taxipark.Assistant;
-import org.solvd.structure.taxipark.TaxiPark;
+import main.java.org.solvd.structure.application.Rating;
+import main.java.org.solvd.structure.exceptions.InvalidPointsException;
+import main.java.org.solvd.structure.taxipark.Car;
+import main.java.org.solvd.structure.TaxiCompany;
+import main.java.org.solvd.structure.application.Client;
+import main.java.org.solvd.structure.application.Path;
+import main.java.org.solvd.structure.application.Request;
+import main.java.org.solvd.structure.taxipark.Driver;
+import main.java.org.solvd.structure.taxipark.Assistant;
+import main.java.org.solvd.structure.taxipark.TaxiPark;
 
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,16 +32,51 @@ public class Main {
         Car car5 = new Car("Kia", "9755", LocalDate.of(2022, 7, 5));
         Car car6 = new Car("Kia", "3234", LocalDate.of(2024, 1, 9));
 
-        Path path1 = new Path(0, 12);
-        Path path2 = new Path(5, 12);
-        Path path3 = new Path(1, 25);
+        Path path1 = null;
+        try {
+            path1 = new Path(1, 5);
+        } catch (InvalidPointsException e) {
+            throw new RuntimeException(e);
+        }
+        Path path2 = null;
+        try {
+            path2 = new Path(5, 12);
+        } catch (InvalidPointsException e) {
+            throw new RuntimeException(e);
+        }
+        Path path3 = null;
+        try {
+            path3 = new Path(1, 25);
+        } catch (InvalidPointsException e) {
+            throw new RuntimeException(e);
+        }
 
+//        Scanner input = new Scanner(System.in);
+//        while(true){
+//            try {
+//                System.out.println("enter a1 and a2");
+//                int a1 = input.nextInt();
+////                input.nextLine();
+//                int a2 = input.nextInt();
+//                path1 = new Path(a1, a2);
+//                break;
+////            path2 = new Path(5, 12);
+////            path3 = new Path(1, 25);
+//            } catch (InvalidPointsException e) {
+//                System.out.println(e.getMessage());;
+//            }
+//        }
+
+
+//        System.out.println(path1.getDistance());
 
 
         Client client1 = new Client("Tom", "Allan");
         Client client2 = new Client("John", "Smith");
         Client client3 = new Client("George", "Brown");
         Client client4 = new Client("Anna", "Miller");
+
+        client1.addRating(new Rating("alright", 5));
 
         Driver driver1 = new Driver("Jim", "Lorens", car2);
         Driver driver2 = new Driver("Bill", "Daniels", car1);
@@ -49,11 +87,17 @@ public class Main {
         Request request3 = new Request(client3, driver3, path2, false);
         Request request4 = new Request(client4, driver1, path1, false);
         Request request5 = new Request(client2, driver2, path2, false);
-        Request request6 = new Request(client3, driver3, path3, true);
+        Request request6 = new Request(client3, driver3, path3, false);
+
+
+//        client1.printRatings();
+        request1.setFeedback();
+
+        request1.printRatings();
 
 //        client3.printRatings();
 //        driver3.printRatings();
-        request6.printRatings();
+//        request6.printRatings();
 
         Request[] requests1 = {request4, request5, request4, request1, request3, request5};
         Request[] requests2 = {request2};

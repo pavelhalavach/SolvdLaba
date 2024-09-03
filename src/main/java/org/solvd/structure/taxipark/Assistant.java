@@ -1,5 +1,5 @@
-package org.solvd.structure.taxipark;
-import org.solvd.structure.Person;
+package main.java.org.solvd.structure.taxipark;
+import main.java.org.solvd.structure.Person;
 
 import java.util.Objects;
 

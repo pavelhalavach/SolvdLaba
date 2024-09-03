@@ -1,4 +1,6 @@
-package org.solvd.structure.application;
+package main.java.org.solvd.structure.application;
+
+import main.java.org.solvd.structure.exceptions.InvalidPointsException;
 
 import java.util.Objects;
 
@@ -7,7 +9,10 @@ public class  Path {
     private float endPoint;
     private float distanceInKm;
 
-    public Path(float startPoint, float endPoint) {
+    public Path(float startPoint, float endPoint) throws InvalidPointsException {
+        if (startPoint >= endPoint || startPoint < 0){
+            throw new InvalidPointsException();
+        }
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         setDistance();
