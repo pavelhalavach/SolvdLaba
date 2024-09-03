@@ -1,8 +1,7 @@
 package org.solvd.structure.application;
 
 import org.solvd.structure.AppUser;
-import org.solvd.structure.FeedbackCollectable;
-import org.solvd.structure.RatingPrintable;
+import org.solvd.structure.interfaces.FeedbackCollectable;
 import org.solvd.structure.taxipark.Driver;
 
 import java.util.Scanner;

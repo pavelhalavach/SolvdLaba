@@ -1,8 +1,9 @@
 package org.solvd.structure;
 
 import org.solvd.structure.application.Rating;
+import org.solvd.structure.interfaces.RatingOperatable;
 
-public abstract class AppUser extends Person implements RatingOperatable{
+public abstract class AppUser extends Person implements RatingOperatable {
     private Rating[] ratings;
     public AppUser(String name, String surname) {
         super(name, surname);

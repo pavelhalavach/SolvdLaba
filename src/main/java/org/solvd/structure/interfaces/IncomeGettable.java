@@ -1,4 +1,4 @@
-package org.solvd.structure;
+package org.solvd.structure.interfaces;
 
 import org.solvd.structure.application.Request;
 import org.solvd.structure.taxipark.Assistant;

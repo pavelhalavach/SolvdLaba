@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Car {
-    private static int id = 0;
+    private static int id;
     private String brandName;
     private String plateNumber;
     private LocalDate registrationDateOfPlate;

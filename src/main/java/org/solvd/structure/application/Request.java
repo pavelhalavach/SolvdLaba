@@ -1,12 +1,9 @@
 package org.solvd.structure.application;
-import org.solvd.structure.AppUser;
-import org.solvd.structure.FeedbackCollectable;
-import org.solvd.structure.RatingPrintable;
+import org.solvd.structure.interfaces.RatingPrintable;
 import org.solvd.structure.taxipark.Driver;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Request implements RatingPrintable {
     private static final float multiplier = 8;

@@ -1,4 +1,4 @@
-package org.solvd.structure;
+package org.solvd.structure.interfaces;
 
 public interface RatingOperatable extends RatingPrintable, RatingAddable, AvgRatingCalculable{
 }

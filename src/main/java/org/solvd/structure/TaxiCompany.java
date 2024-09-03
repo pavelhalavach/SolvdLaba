@@ -1,12 +1,12 @@
 package org.solvd.structure;
 
-import org.solvd.structure.application.Request;
+import org.solvd.structure.interfaces.DriversReceivable;
 import org.solvd.structure.taxipark.Driver;
 import org.solvd.structure.taxipark.TaxiPark;
 
 import java.util.Arrays;
 
-public class TaxiCompany implements DriversReceivable{
+public class TaxiCompany implements DriversReceivable {
     private TaxiPark[] taxiParks;
     static {
         display();
