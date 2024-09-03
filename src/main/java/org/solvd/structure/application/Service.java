@@ -1,9 +1,9 @@
-package structure.application;
+package org.solvd.structure.application;
 
-import structure.AppUser;
-import structure.FeedbackCollectable;
-import structure.RatingPrintable;
-import structure.taxipark.Driver;
+import org.solvd.structure.AppUser;
+import org.solvd.structure.FeedbackCollectable;
+import org.solvd.structure.RatingPrintable;
+import org.solvd.structure.taxipark.Driver;
 
 import java.util.Scanner;
 
@@ -11,6 +11,7 @@ public class Service implements FeedbackCollectable {
     public Service(){
     }
 
+    @Override
     public Rating[] collectFeedback(Client client, Driver driver){
         return new Rating[]{askForFeedback(client), askForFeedback(driver)};
     }

@@ -1,6 +1,6 @@
-package structure;
+package org.solvd.structure;
 
-import structure.application.Rating;
+import org.solvd.structure.application.Rating;
 
 public abstract class AppUser extends Person implements RatingOperatable{
     private Rating[] ratings;

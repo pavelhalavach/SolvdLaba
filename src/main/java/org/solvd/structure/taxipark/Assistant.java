@@ -1,5 +1,5 @@
-package structure.taxipark;
-import structure.Person;
+package org.solvd.structure.taxipark;
+import org.solvd.structure.Person;
 
 import java.util.Objects;
 
@@ -14,8 +14,8 @@ public class Assistant extends Person{
     @Override
     public String toString() {
         return "{" +
-                name +
-                " " + surname +
+                getName() +
+                " " + getSurname() +
                 ", salary=" + salary +
                 '}';
     }
@@ -25,28 +25,30 @@ public class Assistant extends Person{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Assistant assistant = (Assistant) o;
-        return Float.compare(salary, assistant.salary) == 0 && Objects.equals(name, assistant.name) && Objects.equals(surname, assistant.surname);
+        return Float.compare(salary, assistant.salary) == 0 &&
+                Objects.equals(getName(), assistant.getName()) &&
+                Objects.equals(getSurname(), assistant.getSurname());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, salary);
+        return Objects.hash(getName(), getSurname(), salary);
     }
 
     public String getName() {
-        return name;
+        return getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.setName(name);
     }
 
     public String getSurname() {
-        return surname;
+        return getSurname();
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.setSurname(surname);
     }
 
     public float getSalary() {

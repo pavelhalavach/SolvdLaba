@@ -1,8 +1,8 @@
-package structure.application;
+package org.solvd.structure.application;
 
 import java.util.Objects;
 
-public class Path {
+public class  Path {
     private float startPoint;
     private float endPoint;
     private float distanceInKm;

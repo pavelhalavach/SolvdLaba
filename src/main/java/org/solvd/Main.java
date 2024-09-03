@@ -1,8 +1,14 @@
-import structure.TaxiCompany;
-import structure.application.Client;
-import structure.application.Path;
-import structure.application.Request;
-import structure.taxipark.*;
+package org.solvd;
+
+import org.solvd.structure.taxipark.Car;
+import org.solvd.structure.TaxiCompany;
+import org.solvd.structure.application.Client;
+import org.solvd.structure.application.Path;
+import org.solvd.structure.application.Request;
+import org.solvd.structure.taxipark.Driver;
+import org.solvd.structure.taxipark.Assistant;
+import org.solvd.structure.taxipark.TaxiPark;
+
 
 import java.time.LocalDate;
 

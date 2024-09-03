@@ -1,16 +1,29 @@
-package structure;
+package org.solvd.structure;
 
-import structure.application.Request;
-import structure.taxipark.Driver;
-import structure.taxipark.TaxiPark;
+import org.solvd.structure.application.Request;
+import org.solvd.structure.taxipark.Driver;
+import org.solvd.structure.taxipark.TaxiPark;
 
 import java.util.Arrays;
 
 public class TaxiCompany implements DriversReceivable{
     private TaxiPark[] taxiParks;
+    static {
+        display();
+
+    }
 
     public TaxiCompany(TaxiPark[] taxiParks) {
         this.taxiParks = taxiParks;
+    }
+
+    public static void display(){
+        System.out.println("The Taxi Company was created");
+        System.out.println("It has many TaxiParks");
+        System.out.println("With information about location, accounting department, assistant" +
+                "and requests");
+        System.out.println("Every request includes driver, client, path and price");
+        System.out.println("Each request has a function to ask a feedback about the drive");
     }
 
     public void printAllDrivers(){

@@ -1,8 +1,8 @@
-package structure.application;
-import structure.AppUser;
-import structure.FeedbackCollectable;
-import structure.RatingPrintable;
-import structure.taxipark.Driver;
+package org.solvd.structure.application;
+import org.solvd.structure.AppUser;
+import org.solvd.structure.FeedbackCollectable;
+import org.solvd.structure.RatingPrintable;
+import org.solvd.structure.taxipark.Driver;
 
 import java.time.LocalDate;
 import java.util.Objects;

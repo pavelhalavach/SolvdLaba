@@ -1,6 +1,6 @@
-package structure.application;
+package org.solvd.structure.application;
 
-import structure.AppUser;
+import org.solvd.structure.AppUser;
 
 import java.util.Arrays;
 import java.util.Objects;

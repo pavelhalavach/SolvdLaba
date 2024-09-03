@@ -1,13 +1,13 @@
-package structure.taxipark;
+package org.solvd.structure.taxipark;
 
-import structure.application.Request;
+import org.solvd.structure.IncomeGettable;
+import org.solvd.structure.application.Request;
 
 import java.util.Objects;
 
-public class Accounting {
+public class Accounting implements IncomeGettable {
     private static float bill;
     static {
-        System.out.println("The bill is set to 26%");
         bill = 0.26f;
     }
     private float income;
@@ -15,9 +15,20 @@ public class Accounting {
     protected Accounting() {
     }
 
+    @Override
     public float getIncomeAfterBills(Request[] requests, Assistant assistant){
-        setIncome(requests, assistant);
+        calculateIncome(requests, assistant);
         return income * bill;
+    }
+
+    @Override
+    public void calculateIncome(Request[] requests, Assistant assistant) {
+        float income = 0;
+        for (var request : requests){
+            income += request.getPrice() * (1 - Driver.getPercentage());
+        }
+        income += assistant.getSalary();
+        this.income = income;
     }
 
     @Override
@@ -53,12 +64,7 @@ public class Accounting {
     }
 
 //    HAVE TO CHANGE IT
-    public void setIncome(Request[] requests, Assistant assistant) {
-        float income = 0;
-        for (var request : requests){
-            income += request.getPrice() * (1 - Driver.getPercentage());
-        }
-        income += assistant.getSalary();
+    public void setIncome(float income) {
         this.income = income;
     }
 }

@@ -1,4 +1,4 @@
-package structure.application;
+package org.solvd.structure.application;
 
 import java.util.Objects;
 
