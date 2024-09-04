@@ -4,6 +4,8 @@ import main.java.org.solvd.structure.exceptions.NoRatingException;
 import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.DriversReceivable;
 import main.java.org.solvd.structure.application.Request;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,10 +15,10 @@ import java.util.Set;
 public class TaxiPark implements DriversReceivable {
     private String location;
     private Assistant assistant;
-//    private Driver[] drivers;
     private Accounting accounting;
     private Request[] requests;
-
+    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger_err = LogManager.getLogger("errors");
     public TaxiPark(String location, Assistant assistant, Request[] requests) {
         this.location = location;
         this.assistant = assistant;
@@ -30,14 +32,16 @@ public class TaxiPark implements DriversReceivable {
 
     @Override
     public void printAllDrivers(){
+        logger_err.info("Executing taxiPark.printAllDrivers()");
         try {
-            System.out.println("Drivers:");
+            logger.info("Drivers:");
             for (var driver : getAllDrivers()){
-                System.out.println(driver.getName() + " " + driver.getSurname());
+                logger.info(driver.getName() + " " + driver.getSurname());
             }
         } catch (NoRequestsException e) {
-            System.out.println(e.getMessage());
+            logger_err.error(e.getMessage());
         }
+        logger_err.info("Closing taxiPark.printAllDrivers()");
     }
 
     @Override
@@ -49,20 +53,6 @@ public class TaxiPark implements DriversReceivable {
         for (var request : requests){
             drivers.add(request.getDriver());
         }
-//        Driver[] drivers = new Driver[requests.length];
-//        int indicator = 0;
-//        for(int i = 0; i < requests.length; i++){
-//            for (var driver : drivers){
-//                if(driver != null && driver.equals(requests[i].getDriver())){
-//                    indicator = 1;
-//                    break;
-//                }
-//            }
-//            if(indicator != 1){
-//                drivers[i] = requests[i].getDriver();
-//            }
-//            indicator = 0;
-//        }
         return drivers;
     }
 

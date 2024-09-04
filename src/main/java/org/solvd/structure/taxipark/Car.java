@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Car {
-    private static int id;
+    private static int counter;
     private String brandName;
     private String plateNumber;
     private LocalDate registrationDateOfPlate;
 
     public Car(String brandName, String plateNumber, LocalDate registrationDateOfPlate) {
-        id++;
+        counter++;
         this.brandName = brandName;
         this.plateNumber = plateNumber;
         this.registrationDateOfPlate = registrationDateOfPlate;
