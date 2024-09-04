@@ -21,7 +21,7 @@ public class Service //implements FeedbackCollectable
         return new Rating[]{askForFeedback(client), askForFeedback(driver)};
     }
 
-//    x@Override
+//    @Override
     public static Rating askForFeedback(AppUser user){
         System.out.println("Hello, "  + user.getName() + " " + user.getSurname());
         System.out.println("Please give us a feedback about your drive");
@@ -47,18 +47,4 @@ public class Service //implements FeedbackCollectable
 
         return new Rating(comment, mark);
     }
-
-//    @Override
-//    public void printRatings(){
-//        System.out.println("Rating of driver " + driver.toString() + ":");
-//        if (clientFeedback == null) System.out.println("there is no rating");
-//        else {
-//            System.out.println(clientFeedback.toString());
-//        }
-//        System.out.println("Rating of client " + client.toString() + ":");
-//        if (driverFeedback == null) System.out.println("there is no rating");
-//        else {
-//            System.out.println(driverFeedback.toString());
-//        }
-//    }
 }

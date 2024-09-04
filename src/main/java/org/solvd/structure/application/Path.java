@@ -9,7 +9,7 @@ public class  Path {
     private float endPoint;
     private float distanceInKm;
 
-    public Path(float startPoint, float endPoint) throws InvalidPointsException {
+    public Path(float startPoint, float endPoint){
         if (startPoint >= endPoint || startPoint < 0){
             throw new InvalidPointsException();
         }

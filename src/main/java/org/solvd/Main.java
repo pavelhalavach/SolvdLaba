@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         TaxiCompany taxiCompany = createTaxiCompany();
 //        taxiCompany.printTotalIncomeAfterBills();
-//        taxiCompany.printAllDrivers();
+        taxiCompany.printAllDrivers();
 //        System.out.println(taxiCompany.toString());
 
     }
@@ -32,17 +32,17 @@ public class Main {
         Car car5 = new Car("Kia", "9755", LocalDate.of(2022, 7, 5));
         Car car6 = new Car("Kia", "3234", LocalDate.of(2024, 1, 9));
 
-        Path path1 = null;
-        try {
-            path1 = new Path(1, 5);
-        } catch (InvalidPointsException e) {
-            throw new RuntimeException(e);
-        }
+        Path path1 = new Path(1, 5);
+//        try {
+//            path1 = new Path(1, 5);
+//        } catch (InvalidPointsException e) {
+//            throw new RuntimeException(e);
+//        }
         Path path2 = null;
         try {
             path2 = new Path(5, 12);
         } catch (InvalidPointsException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());;
         }
         Path path3 = null;
         try {
@@ -91,9 +91,9 @@ public class Main {
 
 
 //        client1.printRatings();
-        request1.setFeedback();
+//        request1.setFeedback();
 
-        request1.printRatings();
+//        request1.printRatings();
 
 //        client3.printRatings();
 //        driver3.printRatings();
@@ -102,13 +102,17 @@ public class Main {
         Request[] requests1 = {request4, request5, request4, request1, request3, request5};
         Request[] requests2 = {request2};
         Request[] requests3 = {request1, request2, request5};
+        Request[] requests6 = null;
 
         Assistant assistant1 = new Assistant("Cavin", "Tores", 5600);
         Assistant assistant2 = new Assistant("Nika", "Daron", 5000);
 
         TaxiPark taxiPark1 = new TaxiPark("Warsaw", assistant1, requests1);
         TaxiPark taxiPark2 = new TaxiPark("Krakow", assistant2, requests3);
+        TaxiPark taxiPark3 = new TaxiPark("Krakow", assistant2, requests6);
 
-        return new TaxiCompany(new TaxiPark[]{taxiPark1, taxiPark2});
+        System.out.println(taxiPark3.calculateIncomeAfterBills());
+
+        return new TaxiCompany(new TaxiPark[]{taxiPark1, taxiPark2, taxiPark3});
     }
 }

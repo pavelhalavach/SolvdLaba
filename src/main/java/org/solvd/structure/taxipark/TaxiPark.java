@@ -1,10 +1,14 @@
 package main.java.org.solvd.structure.taxipark;
 
+import main.java.org.solvd.structure.exceptions.NoRatingException;
+import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.DriversReceivable;
 import main.java.org.solvd.structure.application.Request;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class TaxiPark implements DriversReceivable {
     private String location;
@@ -25,21 +29,40 @@ public class TaxiPark implements DriversReceivable {
     }
 
     @Override
-    public Driver[] getAllDrivers(){
-        Driver[] drivers = new Driver[requests.length];
-        int indicator = 0;
-        for(int i = 0; i < requests.length; i++){
-            for (var driver : drivers){
-                if(driver != null && driver.equals(requests[i].getDriver())){
-                    indicator = 1;
-                    break;
-                }
+    public void printAllDrivers(){
+        try {
+            System.out.println("Drivers:");
+            for (var driver : getAllDrivers()){
+                System.out.println(driver.getName() + " " + driver.getSurname());
             }
-            if(indicator != 1){
-                drivers[i] = requests[i].getDriver();
-            }
-            indicator = 0;
+        } catch (NoRequestsException e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public Set<Driver> getAllDrivers() throws NoRequestsException {
+        if (requests == null){
+            throw new NoRequestsException();
+        }
+        Set<Driver> drivers = new HashSet<>();
+        for (var request : requests){
+            drivers.add(request.getDriver());
+        }
+//        Driver[] drivers = new Driver[requests.length];
+//        int indicator = 0;
+//        for(int i = 0; i < requests.length; i++){
+//            for (var driver : drivers){
+//                if(driver != null && driver.equals(requests[i].getDriver())){
+//                    indicator = 1;
+//                    break;
+//                }
+//            }
+//            if(indicator != 1){
+//                drivers[i] = requests[i].getDriver();
+//            }
+//            indicator = 0;
+//        }
         return drivers;
     }
 

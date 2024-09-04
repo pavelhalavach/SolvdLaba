@@ -13,6 +13,9 @@
     </Appenders>
     <!-- Define the loggers -->
     <Loggers>
+        <Logger name = "errors" level = "info" additivity = "false">
+            <AppenderRef ref="FileAppender" />
+        </Logger>
         <!-- Root Logger -->
         <Root level="info">
             <AppenderRef ref="ConsoleAppender" />

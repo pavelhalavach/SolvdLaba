@@ -1,5 +1,6 @@
 package main.java.org.solvd.structure;
 
+import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.DriversReceivable;
 import main.java.org.solvd.structure.taxipark.Driver;
 import main.java.org.solvd.structure.taxipark.TaxiPark;
@@ -7,10 +8,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TaxiCompany implements DriversReceivable {
     private TaxiPark[] taxiParks;
     private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger_err = LogManager.getLogger("errors");
     static {
         logger.info("The Taxi Company was created");
         logger.info("It has many TaxiParks");
@@ -24,37 +28,47 @@ public class TaxiCompany implements DriversReceivable {
         this.taxiParks = taxiParks;
     }
 
+    @Override
     public void printAllDrivers(){
-        System.out.println("Drivers:");
+        logger.info("Drivers:");
         for (var driver : getAllDrivers()){
-            if (driver != null) System.out.println(driver.getName() + " " + driver.getSurname());
+            logger.info(driver.getName() + " " + driver.getSurname());
         }
     }
 
     @Override
-    public Driver[] getAllDrivers() {
-        int length = 0;
+    public Set<Driver> getAllDrivers() {
+        logger_err.info("Executing taxiCompany.getAllDrivers()");
+//        int length = 0;
+//        Driver[] drivers = new Driver[length];
+        Set<Driver> drivers = new HashSet<>();
         for (var taxiPark : taxiParks) {
-            length += taxiPark.getAllDrivers().length;
-        }
-        Driver[] drivers = new Driver[length];
-        int j = 0;
-        int indicator;
-        for (var taxiPark : taxiParks){
-            indicator = 0;
-            for (int i = 0; i < taxiPark.getAllDrivers().length; i++){
-                for (var driver : drivers){
-                    if(driver != null && driver.equals(taxiPark.getAllDrivers()[i])){
-                        indicator = 1;
-                        break;
-                    }
-                }
-                if(indicator != 1){
-                    drivers[i+j] = taxiPark.getAllDrivers()[i];
-                }
+            try {
+                drivers.addAll(taxiPark.getAllDrivers());
+            } catch (NoRequestsException e) {
+                logger_err.error(e.getMessage());
             }
-            j++;
+//            length += taxiPark.getAllDrivers().length;
         }
+        logger_err.info("Closing taxiCompany.getAllDrivers()");
+//        int j = 0;
+//
+//        int indicator;
+//        for (var taxiPark : taxiParks){
+//            indicator = 0;
+//            for (int i = 0; i < taxiPark.getAllDrivers().length; i++){
+//                for (var driver : drivers){
+//                    if(driver != null && driver.equals(taxiPark.getAllDrivers()[i])){
+//                        indicator = 1;
+//                        break;
+//                    }
+//                }
+//                if(indicator != 1){
+//                    drivers[i+j] = taxiPark.getAllDrivers()[i];
+//                }
+//            }
+//            j++;
+//        }
         return drivers;
 
     }
