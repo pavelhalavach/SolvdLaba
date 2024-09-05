@@ -50,7 +50,7 @@ public class Request implements RatingPrintable {
                 throw new NoRatingException();
             logger.info(clientFeedback);
         } catch (NoRatingException e) {
-            logger.error(e.getMessage() + driver);
+            logger_err.error(e.getMessage() + driver);
         }
         logger.info("Rating of client " + client + ":");
         try {
@@ -58,7 +58,7 @@ public class Request implements RatingPrintable {
                 throw new NoRatingException();
             logger.info(driverFeedback);
         } catch (NoRatingException e) {
-            logger.error(e.getMessage() + client);
+            logger_err.error(e.getMessage() + client);
         }
         logger_err.info("Closing request.printRatings()");
     }

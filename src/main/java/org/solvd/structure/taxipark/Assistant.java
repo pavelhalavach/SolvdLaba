@@ -35,22 +35,6 @@ public class Assistant extends Person{
         return Objects.hash(getName(), getSurname(), salary);
     }
 
-    public String getName() {
-        return getName();
-    }
-
-    public void setName(String name) {
-        this.setName(name);
-    }
-
-    public String getSurname() {
-        return getSurname();
-    }
-
-    public void setSurname(String surname) {
-        this.setSurname(surname);
-    }
-
     public float getSalary() {
         return salary;
     }

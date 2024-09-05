@@ -31,7 +31,7 @@ public class TaxiCompany implements DriversReceivable {
 
     @Override
     public void printAllDrivers(){
-        logger.info("Drivers:");
+        logger.info("Drivers in the Company:");
         for (var driver : getAllDrivers()){
             logger.info(driver.getName() + " " + driver.getSurname());
         }
@@ -46,7 +46,7 @@ public class TaxiCompany implements DriversReceivable {
             try {
                 drivers.addAll(taxiPark.getAllDrivers());
             } catch (NoDriversException e) {
-                logger.error(e.getMessage() + taxiPark);
+                logger_err.error(e.getMessage() + taxiPark);
             }
         }
         logger_err.info("Closing taxiCompany.getAllDrivers()");

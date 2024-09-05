@@ -35,12 +35,12 @@ public class TaxiPark implements DriversReceivable {
     public void printAllDrivers(){
         logger_err.info("Executing taxiPark.printAllDrivers()");
         try {
-            logger.info("Drivers:");
+            logger.info("Drivers in the TaxiPark:");
             for (var driver : getAllDrivers()){
                 logger.info(driver.getName() + " " + driver.getSurname());
             }
         } catch (NoDriversException e) {
-            logger.error(e.getMessage() + this);
+            logger_err.error(e.getMessage() + this);
         }
         logger_err.info("Closing taxiPark.printAllDrivers()");
     }

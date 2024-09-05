@@ -25,7 +25,7 @@ public abstract class AppUser extends Person implements RatingOperatable {
         try {
             logger.info("The average rating is " + calculateAvgRating());
         } catch (NoRatingException e) {
-            logger.error(e.getMessage());
+            logger_err.error(e.getMessage());
         }
         logger_err.info("Closing AppUser.printAvgRating()");
     }
