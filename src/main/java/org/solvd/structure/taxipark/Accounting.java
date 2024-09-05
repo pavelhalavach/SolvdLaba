@@ -26,7 +26,7 @@ public class Accounting implements IncomeGettable {
         try {
             calculateIncome(requests, assistant);
         } catch (NoRequestsException e) {
-            logger_err.error(e.getMessage());
+            logger.error(e.getMessage());
         }
         logger_err.info("Closing Accounting.getIncomeAfterBills()");
         return income * (1 - bill);

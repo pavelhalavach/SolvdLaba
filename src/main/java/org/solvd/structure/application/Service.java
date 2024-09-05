@@ -15,6 +15,7 @@ public class Service //implements FeedbackCollectable
 //    public Service(){
 //    }
     private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger_err = LogManager.getLogger("errors");
 
 //    @Override
     public static Rating[] collectFeedback(Client client, Driver driver){
@@ -23,9 +24,10 @@ public class Service //implements FeedbackCollectable
 
 //    @Override
     public static Rating askForFeedback(AppUser user){
-        System.out.println("Hello, "  + user.getName() + " " + user.getSurname());
-        System.out.println("Please give us a feedback about your drive");
-        System.out.println("Firstly, put your mark");
+        logger_err.info("Executing Service.askForFeedback()");
+        logger.info("Hello, "  + user.getName() + " " + user.getSurname());
+        logger.info("Please give us a feedback about your drive");
+        logger.info("Firstly, put your mark");
         Scanner input = new Scanner(System.in);
         int mark;
         while(true){
@@ -41,9 +43,10 @@ public class Service //implements FeedbackCollectable
                 logger.error(ex.getClass());
             }
         }
-        System.out.println("Then add some comments");
+        logger.info("Then add some comments");
         input.nextLine();
         String comment = input.nextLine();
+        logger_err.info("Closing Service.askForFeedback()");
 
         return new Rating(comment, mark);
     }

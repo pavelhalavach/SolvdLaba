@@ -4,6 +4,9 @@ import main.java.org.solvd.structure.AppUser;
 import main.java.org.solvd.structure.application.Client;
 import main.java.org.solvd.structure.application.Rating;
 import main.java.org.solvd.structure.application.Request;
+import main.java.org.solvd.structure.exceptions.NoRatingException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,6 +15,8 @@ import java.util.Scanner;
 public final class Driver extends AppUser {
     private static float percentage = 0.7f;
     private Car car;
+    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Driver(String name,
                   String surname,
@@ -20,19 +25,7 @@ public final class Driver extends AppUser {
         this.car = car;
     }
 
-//    @Override
-//    public Rating giveFeedback(AppUser user){
-//        System.out.println("Hello, driver " + name + " " + surname);
-//        System.out.println("Please give us a feedback about your client " +
-//                user.getName() + " " + user.getSurname());
-//        System.out.println("First put your mark, then add some comments");
-//        Scanner input = new Scanner(System.in);
-//        int mark = input.nextInt();
-//        input.nextLine();
-//        String comment = input.nextLine();
-//
-//        return new Rating(comment, mark);
-//    }
+
 
     @Override
     public String toString() {
@@ -40,6 +33,17 @@ public final class Driver extends AppUser {
                 " " + getSurname() +
                 ", car: " + car +
                 "}";
+    }
+
+    @Override
+    public void printRatings() throws NoRatingException {
+        logger_err.info("Executing driver.printRatings()");
+        if (getRatings() == null) throw new NoRatingException();
+        logger.info("Rating for " + getName() + " " + getSurname());
+        for (var rating : getRatings()){
+            logger.info(rating);
+        }
+        logger_err.info("Closing driver.printRatings()");
     }
 
     @Override

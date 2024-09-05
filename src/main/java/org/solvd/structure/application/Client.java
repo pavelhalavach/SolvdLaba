@@ -1,12 +1,17 @@
 package main.java.org.solvd.structure.application;
 
 import main.java.org.solvd.structure.AppUser;
+import main.java.org.solvd.structure.exceptions.NoRatingException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
 public final class Client extends AppUser {
+    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Client(String name, String surname) {
         super(name, surname);
@@ -20,18 +25,29 @@ public final class Client extends AppUser {
     }
 
     @Override
+    public void printRatings() throws NoRatingException {
+        logger_err.info("Executing client.printRatings()");
+        if (getRatings() == null) throw new NoRatingException();
+        logger.info("Rating for " + getName() + " " + getSurname());
+        for (var rating : getRatings()){
+            logger.info(rating);
+        }
+        logger_err.info("Closing client.printRatings()");
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Client client)) return false;
         return Objects.equals(getName(), client.getName()) &&
                 Objects.equals(getSurname(), client.getSurname()) &&
-                Arrays.equals(getRatings(), client.getRatings());
+                Objects.equals(getRatings(), client.getRatings());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(getName(), getSurname());
-        result = 31 * result + Arrays.hashCode(getRatings());
+        result = 31 * result + Objects.hashCode(getRatings());
         return result;
     }
 }

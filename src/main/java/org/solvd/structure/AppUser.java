@@ -9,22 +9,23 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 public abstract class AppUser extends Person implements RatingOperatable {
-//    private Rating[] ratings;
+    //    private Rating[] ratings;
     private ArrayList<Rating> ratings;
     private static final Logger logger = LogManager.getRootLogger();
     private static final Logger logger_err = LogManager.getLogger("errors");
+
     public AppUser(String name, String surname) {
         super(name, surname);
     }
 
-//    public abstract Rating giveFeedback(AppUser user);
+    //    public abstract Rating giveFeedback(AppUser user);
     @Override
-    public void printAvgRating(){
+    public void printAvgRating() {
         logger_err.info("Executing AppUser.printAvgRating()");
         try {
             logger.info("The average rating is " + calculateAvgRating());
         } catch (NoRatingException e) {
-            logger_err.error(e.getMessage());
+            logger.error(e.getMessage());
         }
         logger_err.info("Closing AppUser.printAvgRating()");
     }
@@ -35,42 +36,27 @@ public abstract class AppUser extends Person implements RatingOperatable {
             throw new NoRatingException();
         }
         int sum = 0;
-        for (var rating : ratings){
+        for (var rating : ratings) {
             sum += rating.getMark();
         }
         return (float) (sum / ratings.size());
     }
 
     @Override
-    public final void addRating(Rating rating){
-        if (this.ratings == null) {
-            this.ratings = new Rating[]{rating};
-        } else {
-            Rating[] newRatings = new Rating[this.ratings.length+1];
-            for(int i = 0; i < this.ratings.length; i++){
-                newRatings[i] = this.ratings[i];
-            }
-            newRatings[this.ratings.length] = rating;
-            this.ratings = newRatings;
-        }
+    public final void addRating(Rating rating) {
+        if (this.ratings == null) this.ratings = new ArrayList<>();
+        this.ratings.add(rating);
     }
 
     @Override
-    public final void printRatings(){
-        if (ratings == null) System.out.println("there is no rating");
-        else {
-            System.out.println("Rating for " + getName() + " " + getSurname());
-            for (int i = 0; i < ratings.length; i++){
-                System.out.println(ratings[i].toString());
-            }
-        }
-    }
+    public abstract void printRatings() throws NoRatingException;
 
-    public Rating[] getRatings() {
+
+    public ArrayList<Rating> getRatings() {
         return ratings;
     }
 
-    public void setRatings(Rating[] ratings) {
+    public void setRatings(ArrayList<Rating> ratings) {
         this.ratings = ratings;
     }
 }

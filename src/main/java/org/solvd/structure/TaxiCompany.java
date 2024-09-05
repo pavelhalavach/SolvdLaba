@@ -1,5 +1,6 @@
 package main.java.org.solvd.structure;
 
+import main.java.org.solvd.structure.exceptions.NoDriversException;
 import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.DriversReceivable;
 import main.java.org.solvd.structure.taxipark.Driver;
@@ -39,36 +40,16 @@ public class TaxiCompany implements DriversReceivable {
     @Override
     public Set<Driver> getAllDrivers() {
         logger_err.info("Executing taxiCompany.getAllDrivers()");
-//        int length = 0;
-//        Driver[] drivers = new Driver[length];
+
         Set<Driver> drivers = new HashSet<>();
         for (var taxiPark : taxiParks) {
             try {
                 drivers.addAll(taxiPark.getAllDrivers());
-            } catch (NoRequestsException e) {
-                logger_err.error(e.getMessage());
+            } catch (NoDriversException e) {
+                logger.error(e.getMessage() + taxiPark);
             }
-//            length += taxiPark.getAllDrivers().length;
         }
         logger_err.info("Closing taxiCompany.getAllDrivers()");
-//        int j = 0;
-//
-//        int indicator;
-//        for (var taxiPark : taxiParks){
-//            indicator = 0;
-//            for (int i = 0; i < taxiPark.getAllDrivers().length; i++){
-//                for (var driver : drivers){
-//                    if(driver != null && driver.equals(taxiPark.getAllDrivers()[i])){
-//                        indicator = 1;
-//                        break;
-//                    }
-//                }
-//                if(indicator != 1){
-//                    drivers[i+j] = taxiPark.getAllDrivers()[i];
-//                }
-//            }
-//            j++;
-//        }
         return drivers;
 
     }

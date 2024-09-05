@@ -2,6 +2,8 @@ package main.java.org.solvd.structure.application;
 import main.java.org.solvd.structure.exceptions.NoRatingException;
 import main.java.org.solvd.structure.interfaces.RatingPrintable;
 import main.java.org.solvd.structure.taxipark.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -16,6 +18,8 @@ public class Request implements RatingPrintable {
     private Rating driverFeedback;
     private Rating clientFeedback;
 //    private final Service service;
+    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Request(Client client, Driver driver, Path path, boolean wantFeedback) {
         this.client = client;
@@ -26,7 +30,7 @@ public class Request implements RatingPrintable {
         setPrice();
 
         if (wantFeedback) {
-            System.out.println(this.toString());
+            logger.info(this);
             setFeedback();
         }
     }
@@ -39,22 +43,24 @@ public class Request implements RatingPrintable {
 
     @Override
     public void printRatings(){
-        System.out.println("Rating of driver " + driver.toString() + ":");
+        logger_err.info("Executing request.printRatings()");
+        logger.info("Rating of driver " + driver + ":");
         try {
             if (clientFeedback == null)
                 throw new NoRatingException();
-            System.out.println(clientFeedback);
+            logger.info(clientFeedback);
         } catch (NoRatingException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage() + driver);
         }
-        System.out.println("Rating of client " + client.toString() + ":");
+        logger.info("Rating of client " + client + ":");
         try {
             if (driverFeedback == null)
                 throw new NoRatingException();
-            System.out.println(driverFeedback);
+            logger.info(driverFeedback);
         } catch (NoRatingException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage() + client);
         }
+        logger_err.info("Closing request.printRatings()");
     }
 
     @Override

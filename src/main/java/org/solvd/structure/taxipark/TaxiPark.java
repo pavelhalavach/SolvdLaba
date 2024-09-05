@@ -1,5 +1,6 @@
 package main.java.org.solvd.structure.taxipark;
 
+import main.java.org.solvd.structure.exceptions.NoDriversException;
 import main.java.org.solvd.structure.exceptions.NoRatingException;
 import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.DriversReceivable;
@@ -38,16 +39,16 @@ public class TaxiPark implements DriversReceivable {
             for (var driver : getAllDrivers()){
                 logger.info(driver.getName() + " " + driver.getSurname());
             }
-        } catch (NoRequestsException e) {
-            logger_err.error(e.getMessage());
+        } catch (NoDriversException e) {
+            logger.error(e.getMessage() + this);
         }
         logger_err.info("Closing taxiPark.printAllDrivers()");
     }
 
     @Override
-    public Set<Driver> getAllDrivers() throws NoRequestsException {
+    public Set<Driver> getAllDrivers() throws NoDriversException {
         if (requests == null){
-            throw new NoRequestsException();
+            throw new NoDriversException();
         }
         Set<Driver> drivers = new HashSet<>();
         for (var request : requests){
