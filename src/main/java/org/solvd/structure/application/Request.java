@@ -5,7 +5,8 @@ import main.java.org.solvd.structure.taxipark.Driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Request implements RatingPrintable {
@@ -14,10 +15,10 @@ public class Request implements RatingPrintable {
     private Client client;
     private Driver driver;
     private Path path;
-    private LocalDate date;
+    private LocalDateTime date;
     private Rating driverFeedback;
     private Rating clientFeedback;
-//    private final Service service;
+
     private static final Logger logger = LogManager.getRootLogger();
     private static final Logger logger_err = LogManager.getLogger("errors");
 
@@ -25,8 +26,7 @@ public class Request implements RatingPrintable {
         this.client = client;
         this.driver = driver;
         this.path = path;
-        this.date = LocalDate.now();
-//        this.service = new Service();
+        this.date = LocalDateTime.now();
         setPrice();
 
         if (wantFeedback) {
@@ -36,9 +36,9 @@ public class Request implements RatingPrintable {
     }
 
     public void setFeedback(){
-        Rating[] ratings = Service.collectFeedback(client, driver);
-        clientFeedback = ratings[0];
-        driverFeedback = ratings[1];
+        ArrayList<Rating> ratings = Service.collectFeedback(client, driver);
+        clientFeedback = ratings.get(0);
+        driverFeedback = ratings.get(1);
     }
 
     @Override
@@ -133,15 +133,11 @@ public class Request implements RatingPrintable {
         return multiplier;
     }
 
-//    public static void setMultiplier(float multiplier) {
-//        Request.multiplier = multiplier;
-//    }
-
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

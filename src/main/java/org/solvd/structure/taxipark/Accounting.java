@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Accounting implements IncomeGettable {
     private static float bill = 0.26f;
@@ -21,7 +22,7 @@ public class Accounting implements IncomeGettable {
     }
 
     @Override
-    public float getIncomeAfterBills(Request[] requests, Assistant assistant){
+    public float getIncomeAfterBills(Set<Request> requests, Assistant assistant){
         logger_err.info("Executing Accounting.getIncomeAfterBills()");
         try {
             calculateIncome(requests, assistant);
@@ -33,8 +34,8 @@ public class Accounting implements IncomeGettable {
     }
 
     @Override
-    public void calculateIncome(Request[] requests, Assistant assistant) throws NoRequestsException {
-        float income = assistant.getSalary();;
+    public void calculateIncome(Set<Request> requests, Assistant assistant) throws NoRequestsException {
+        float income = assistant.getSalary();
         if (requests == null){
             this.income = income;
             throw new NoRequestsException();

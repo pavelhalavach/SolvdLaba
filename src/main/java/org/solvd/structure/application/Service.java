@@ -2,11 +2,11 @@ package main.java.org.solvd.structure.application;
 
 import main.java.org.solvd.structure.AppUser;
 import main.java.org.solvd.structure.exceptions.IncorrectMarkException;
-import main.java.org.solvd.structure.interfaces.FeedbackCollectable;
 import main.java.org.solvd.structure.taxipark.Driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -18,8 +18,11 @@ public class Service //implements FeedbackCollectable
     private static final Logger logger_err = LogManager.getLogger("errors");
 
 //    @Override
-    public static Rating[] collectFeedback(Client client, Driver driver){
-        return new Rating[]{askForFeedback(client), askForFeedback(driver)};
+    public static ArrayList<Rating> collectFeedback(Client client, Driver driver){
+        ArrayList<Rating> ratings = new ArrayList<>();
+        ratings.add(askForFeedback(client));
+        ratings.add(askForFeedback(driver));
+        return ratings;
     }
 
 //    @Override
