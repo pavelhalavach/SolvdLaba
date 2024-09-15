@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 public abstract class AppUser extends Person implements RatingOperatable {
-    //    private Rating[] ratings;
     private ArrayList<Rating> ratings;
     private static final Logger logger = LogManager.getRootLogger();
     private static final Logger logger_err = LogManager.getLogger("errors");
@@ -17,8 +16,6 @@ public abstract class AppUser extends Person implements RatingOperatable {
     public AppUser(String name, String surname) {
         super(name, surname);
     }
-
-    //    public abstract Rating giveFeedback(AppUser user);
     @Override
     public void printAvgRating() {
         logger_err.info("Executing AppUser.printAvgRating()");
