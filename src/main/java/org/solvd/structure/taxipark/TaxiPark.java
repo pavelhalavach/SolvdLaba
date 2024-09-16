@@ -15,8 +15,9 @@ public class TaxiPark implements DriversReceivable {
     private Assistant assistant;
     private Accounting accounting;
     private Set<Request> requests;
+
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+//    private static final Logger logger_err = LogManager.getLogger("errors");
     public TaxiPark(String location, Assistant assistant, Set<Request> requests) {
         this.location = location;
         this.assistant = assistant;
@@ -30,16 +31,16 @@ public class TaxiPark implements DriversReceivable {
 
     @Override
     public void printAllDrivers(){
-        logger_err.info("Executing taxiPark.printAllDrivers()");
+        logger.trace("Executing taxiPark.printAllDrivers()");
         try {
             logger.info("Drivers in the TaxiPark:");
             for (var driver : getAllDrivers()){
                 logger.info(driver.getName() + " " + driver.getSurname());
             }
         } catch (NoDriversException e) {
-            logger_err.error(e.getMessage() + this);
+            logger.error(e.getMessage() + this);
         }
-        logger_err.info("Closing taxiPark.printAllDrivers()");
+        logger.trace("Closing taxiPark.printAllDrivers()");
     }
 
     @Override

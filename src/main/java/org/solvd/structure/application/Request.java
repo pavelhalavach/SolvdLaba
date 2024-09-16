@@ -20,7 +20,7 @@ public class Request implements RatingPrintable {
     private Rating clientFeedback;
 
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+//    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Request(Client client, Driver driver, Path path, boolean wantFeedback) {
         this.client = client;
@@ -36,21 +36,21 @@ public class Request implements RatingPrintable {
     }
 
     public void setFeedback(){
-        ArrayList<Rating> ratings = Service.collectFeedback(client, driver);
+        ArrayList<Rating> ratings = FeedbackOperator.collectFeedback(client, driver);
         clientFeedback = ratings.get(0);
         driverFeedback = ratings.get(1);
     }
 
     @Override
     public void printRatings(){
-        logger_err.info("Executing request.printRatings()");
+        logger.trace("Executing request.printRatings()");
         logger.info("Rating of driver " + driver + ":");
         try {
             if (clientFeedback == null)
                 throw new NoRatingException();
             logger.info(clientFeedback);
         } catch (NoRatingException e) {
-            logger_err.error(e.getMessage() + driver);
+            logger.error(e.getMessage() + driver);
         }
         logger.info("Rating of client " + client + ":");
         try {
@@ -58,9 +58,9 @@ public class Request implements RatingPrintable {
                 throw new NoRatingException();
             logger.info(driverFeedback);
         } catch (NoRatingException e) {
-            logger_err.error(e.getMessage() + client);
+            logger.error(e.getMessage() + client);
         }
-        logger_err.info("Closing request.printRatings()");
+        logger.trace("Closing request.printRatings()");
     }
 
     @Override

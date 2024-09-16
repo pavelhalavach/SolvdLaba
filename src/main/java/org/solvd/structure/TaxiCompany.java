@@ -15,7 +15,7 @@ import java.util.Set;
 public class TaxiCompany implements DriversReceivable {
     private Set<TaxiPark> taxiParks;
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+
     static {
         logger.info("The Taxi Company was created");
         logger.info("It has many TaxiParks");

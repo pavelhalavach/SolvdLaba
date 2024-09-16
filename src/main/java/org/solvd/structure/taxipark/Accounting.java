@@ -16,20 +16,20 @@ public class Accounting implements IncomeGettable {
     }
     private float income;
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+//    private static final Logger logger_err = LogManager.getLogger("errors");
 
     protected Accounting() {
     }
 
     @Override
     public float getIncomeAfterBills(Set<Request> requests, Assistant assistant){
-        logger_err.info("Executing Accounting.getIncomeAfterBills()");
+        logger.trace("Executing Accounting.getIncomeAfterBills()");
         try {
             calculateIncome(requests, assistant);
         } catch (NoRequestsException e) {
             logger.error(e.getMessage());
         }
-        logger_err.info("Closing Accounting.getIncomeAfterBills()");
+        logger.trace("Closing Accounting.getIncomeAfterBills()");
         return income * (1 - bill);
     }
 

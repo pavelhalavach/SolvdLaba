@@ -16,7 +16,7 @@ public final class Driver extends AppUser {
     private static float percentage = 0.7f;
     private Car car;
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+//    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Driver(String name,
                   String surname,
@@ -37,13 +37,13 @@ public final class Driver extends AppUser {
 
     @Override
     public void printRatings() throws NoRatingException {
-        logger_err.info("Executing driver.printRatings()");
+        logger.trace("Executing driver.printRatings()");
         if (getRatings() == null) throw new NoRatingException();
         logger.info("Rating for " + getName() + " " + getSurname());
         for (var rating : getRatings()){
             logger.info(rating);
         }
-        logger_err.info("Closing driver.printRatings()");
+        logger.trace("Closing driver.printRatings()");
     }
 
     @Override

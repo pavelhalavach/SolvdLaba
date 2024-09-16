@@ -11,20 +11,20 @@ import java.util.ArrayList;
 public abstract class AppUser extends Person implements RatingOperatable {
     private ArrayList<Rating> ratings;
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+//    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public AppUser(String name, String surname) {
         super(name, surname);
     }
     @Override
     public void printAvgRating() {
-        logger_err.info("Executing AppUser.printAvgRating()");
+        logger.trace("Executing AppUser.printAvgRating()");
         try {
             logger.info("The average rating is " + calculateAvgRating());
         } catch (NoRatingException e) {
-            logger_err.error(e.getMessage());
+            logger.error(e.getMessage());
         }
-        logger_err.info("Closing AppUser.printAvgRating()");
+        logger.trace("Closing AppUser.printAvgRating()");
     }
 
     @Override

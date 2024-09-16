@@ -10,8 +10,9 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public final class Client extends AppUser {
+    private String phone;
     private static final Logger logger = LogManager.getRootLogger();
-    private static final Logger logger_err = LogManager.getLogger("errors");
+//    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Client(String name, String surname) {
         super(name, surname);
@@ -26,13 +27,13 @@ public final class Client extends AppUser {
 
     @Override
     public void printRatings() throws NoRatingException {
-        logger_err.info("Executing client.printRatings()");
+        logger.trace("Executing client.printRatings()");
         if (getRatings() == null) throw new NoRatingException();
         logger.info("Rating for " + getName() + " " + getSurname());
         for (var rating : getRatings()){
             logger.info(rating);
         }
-        logger_err.info("Closing client.printRatings()");
+        logger.trace("Closing client.printRatings()");
     }
 
     @Override
@@ -50,4 +51,13 @@ public final class Client extends AppUser {
         result = 31 * result + Objects.hashCode(getRatings());
         return result;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 }

@@ -4,23 +4,17 @@
 
   <groupId>org.solvd</groupId>
   <artifactId>HM_Solvd</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1</version>
   <packaging>jar</packaging>
 
   <name>HM_Solvd</name>
-  <url>http://maven.apache.org</url>
+  <url>https://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
@@ -31,17 +25,41 @@
       <artifactId>log4j-core</artifactId>
       <version>2.23.1</version>
     </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.16.1</version>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <outputDirectory>target</outputDirectory>
+          <resources>
+            <resource>
+              <directory>src/main/resources</directory>
+              <excludes>
+                <exclude>*.xml</exclude>
+              </excludes>
+              <filtering>true</filtering>
+            </resource>
+          </resources>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
         <configuration>
-          <source>16</source>
-          <target>16</target>
+          <source>21</source>
+          <target>21</target>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
 </project>
