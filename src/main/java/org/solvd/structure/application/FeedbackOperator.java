@@ -15,7 +15,8 @@ import java.util.Scanner;
 public class FeedbackOperator implements FeedbackCollectable {
     public FeedbackOperator(){
     }
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     @Override
     public CustomLinkedList<Rating> collectFeedback(Client client, Driver driver){
@@ -27,7 +28,7 @@ public class FeedbackOperator implements FeedbackCollectable {
 
     @Override
     public Rating askForFeedback(AppUser user){
-        logger.trace("Executing FeedbackOperator.askForFeedback()");
+        loggerRoot.trace("Executing FeedbackOperator.askForFeedback()");
         logger.info("Hello, "  + user.getName() + " " + user.getSurname());
         logger.info("Please give us a feedback about your drive");
         logger.info("Firstly, put your mark");
@@ -49,7 +50,7 @@ public class FeedbackOperator implements FeedbackCollectable {
         logger.info("Then add some comments");
         input.nextLine();
         String comment = input.nextLine();
-        logger.trace("Closing FeedbackOperator.askForFeedback()");
+        loggerRoot.trace("Closing FeedbackOperator.askForFeedback()");
 
         return new Rating(comment, mark);
     }

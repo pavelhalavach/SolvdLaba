@@ -18,7 +18,7 @@ public class AdvertisingDepartment {
         this.phoneNumberOperator = new PhoneNumberOperator();
     }
 
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getLogger("taxi");
 
     public void requestPhoneNumbers(Set<Request> requests){
         phoneNumberOperator.savePhoneNumbers(requests);
@@ -37,14 +37,15 @@ public class AdvertisingDepartment {
     }
     public void sendPromotion(String phoneNumber, String message){
         if (StringUtils.contains(phoneNumber, "+48")){
-            logger.info("Sending " + "\"" + message + "\" " + "to " + phoneNumber + " from Polish operator");
+            logger.info("Sending " + "\"" + message + "\" " + "to " + phoneNumber + " using Polish operator");
         } else if (StringUtils.contains(phoneNumber, "+375")){
-            logger.info("Sending " + "\"" + message + "\" " + "to " + phoneNumber + " from Belarusian operator");
+            logger.info("Sending " + "\"" + message + "\" " + "to " + phoneNumber + " using Belarusian operator");
         } else {
-            logger.info("Sending " + "\"" + message + "\" " + "to " + phoneNumber + " from Worldwide operator");
+            logger.info("Sending " + "\"" + message + "\" " + "to " + phoneNumber + " using Worldwide operator");
         }
-
     }
 
-
+    public PhoneNumberOperator getPhoneNumberOperator() {
+        return phoneNumberOperator;
+    }
 }

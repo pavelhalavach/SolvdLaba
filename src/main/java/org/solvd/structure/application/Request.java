@@ -20,8 +20,8 @@ public class Request implements RatingPrintable {
     private Rating driverFeedback;
     private Rating clientFeedback;
     private final FeedbackOperator feedbackOperator;
-
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     public Request(Client client, Driver driver, Path path, boolean wantFeedback) {
         this.client = client;
@@ -41,11 +41,13 @@ public class Request implements RatingPrintable {
         CustomLinkedList<Rating> ratings = feedbackOperator.collectFeedback(client, driver);
         clientFeedback = ratings.get(0);
         driverFeedback = ratings.get(1);
+        client.addRating(driverFeedback);
+        driver.addRating(clientFeedback);
     }
 
     @Override
     public void printRatings(){
-        logger.trace("Executing request.printRatings()");
+        loggerRoot.trace("Executing request.printRatings()");
         logger.info("Rating of driver " + driver + ":");
         try {
             if (clientFeedback == null)
@@ -62,7 +64,7 @@ public class Request implements RatingPrintable {
         } catch (NoRatingException e) {
             logger.error(e.getMessage() + client);
         }
-        logger.trace("Closing request.printRatings()");
+        loggerRoot.trace("Closing request.printRatings()");
     }
 
     @Override

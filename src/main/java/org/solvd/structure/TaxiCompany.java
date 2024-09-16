@@ -14,7 +14,8 @@ import java.util.Set;
 
 public class TaxiCompany implements DriversReceivable {
     private Set<TaxiPark> taxiParks;
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     static {
         logger.info("The Taxi Company was created");
@@ -31,12 +32,12 @@ public class TaxiCompany implements DriversReceivable {
 
     @Override
     public void printAllDrivers(){
-        logger.trace("Executing taxiCompany.printAllDrivers()");
+        loggerRoot.trace("Executing taxiCompany.printAllDrivers()");
         logger.info("Drivers in the Company:");
         for (var driver : getAllDrivers()){
             logger.info(driver.getName() + " " + driver.getSurname());
         }
-        logger.trace("Closing taxiCompany.printAllDrivers()");
+        loggerRoot.trace("Closing taxiCompany.printAllDrivers()");
     }
 
     @Override

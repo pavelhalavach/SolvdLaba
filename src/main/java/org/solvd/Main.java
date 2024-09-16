@@ -1,8 +1,11 @@
 package main.java.org.solvd;
 
 import main.java.org.solvd.structure.CustomLinkedList;
+import main.java.org.solvd.structure.TaxiCompany;
 import main.java.org.solvd.structure.application.*;
 import main.java.org.solvd.structure.taxipark.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 import java.time.LocalDate;
@@ -11,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        Logger logger = LogManager.getLogger("taxi");
         Car car1 = new Car("Tesla", "8023", LocalDate.of(2022, 8, 27));
         Car car2 = new Car("Kia", "5243", LocalDate.of(2021, 2, 23));
         Car car3 = new Car("Kia", "6454", LocalDate.of(2021, 3, 12));
@@ -23,6 +27,10 @@ public class Main {
         Client client1 = new Client("Tom", "Allan", "+48869328192");
         Client client2 = new Client("John", "Smith", "+48771239123");
         Client client3 = new Client("George", "Brown", "+2298501");
+        client3.addRating(new Rating("asd", 3));
+        client3.addRating(new Rating("gg", 5));
+        client3.addRating(new Rating("nxcd", 5));
+        client3.addRating(new Rating("nxcd", 5));
         Client client4 = new Client("Anna", "Miller", "+9812353");
         client1.addRating(new Rating("alright", 5));
         Driver driver1 = new Driver("Jim", "Lorens", car2);
@@ -37,9 +45,7 @@ public class Main {
         Request request4 = new Request(client4, driver1, path1, false);
         TimeUnit.MILLISECONDS.sleep(200);
         Request request5 = new Request(client2, driver2, path2, false);
-        TimeUnit.MILLISECONDS.sleep(200);
-        Request request6 = new Request(client3, driver3, path3, false);
-        Set<Request> requests1 = new HashSet<>(Arrays.asList(request2, request6, request4, request1, request3, request5));
+        Set<Request> requests1 = new HashSet<>(Arrays.asList(request2, request4, request1, request3, request5));
         Set<Request> requests2 = new HashSet<>(List.of(request2));
         Set<Request> requests3 = new HashSet<>(Arrays.asList(request1, request2, request5));
         Set<Request> requests6;
@@ -50,15 +56,16 @@ public class Main {
         TaxiPark taxiPark3 = new TaxiPark("Krakow", assistant2, requests2);
 
 
-//        TaxiCompany taxiCompany = new TaxiCompany(new HashSet<>(Arrays.asList(taxiPark1, taxiPark2, taxiPark3)));
+        TaxiCompany taxiCompany = new TaxiCompany(new HashSet<>(Arrays.asList(taxiPark1, taxiPark2, taxiPark3)));
 
-//        taxiCompany.printAllDrivers();
+        taxiCompany.printAllDrivers();
+        taxiPark1.printPricesByDate();
         taxiPark1.sendPromotionsToClients("Only today 20% off for >5 km drives!");
-//        taxiPark1.printPricesByDate();
 
-//        Scanner input = new Scanner(System.in);
-//        logger.info("Creation of a new request");
-
-
+        Scanner input = new Scanner(System.in);
+        logger.info("Creation of a new request:");
+        Request request6 = new Request(client3, driver3, path3, true);
+        logger.info("Average rating of the client:");
+        request6.getClient().printAvgRating();
     }
 }

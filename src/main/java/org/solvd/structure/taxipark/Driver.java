@@ -15,7 +15,8 @@ import java.util.Scanner;
 public final class Driver extends AppUser {
     private static float percentage = 0.7f;
     private Car car;
-    private static final Logger logger = LogManager.getRootLogger();
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     public Driver(String name,
                   String surname,
@@ -36,7 +37,7 @@ public final class Driver extends AppUser {
 
     @Override
     public void printRatings() {
-        logger.trace("Executing driver.printRatings()");
+        loggerRoot.trace("Executing driver.printRatings()");
         if (getRatings() == null) {
             try {
                 throw new NoRatingException(this);
@@ -48,7 +49,7 @@ public final class Driver extends AppUser {
         for (var rating : getRatings()){
             logger.info(rating);
         }
-        logger.trace("Closing driver.printRatings()");
+        loggerRoot.trace("Closing driver.printRatings()");
     }
 
     @Override

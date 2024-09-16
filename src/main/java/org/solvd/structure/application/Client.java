@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public final class Client extends AppUser {
     private String phone;
-    private static final Logger logger = LogManager.getRootLogger();
-//    private static final Logger logger_err = LogManager.getLogger("errors");
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     public Client(String name, String surname, String phone) {
         super(name, surname);
@@ -29,7 +29,7 @@ public final class Client extends AppUser {
 
     @Override
     public void printRatings() {
-        logger.trace("Executing client.printRatings()");
+        loggerRoot.trace("Executing client.printRatings()");
         if (getRatings() == null) try {
             throw new NoRatingException(this);
         } catch (NoRatingException e) {
@@ -39,7 +39,7 @@ public final class Client extends AppUser {
         for (var rating : getRatings()){
             logger.info(rating);
         }
-        logger.trace("Closing client.printRatings()");
+        loggerRoot.trace("Closing client.printRatings()");
     }
 
     @Override

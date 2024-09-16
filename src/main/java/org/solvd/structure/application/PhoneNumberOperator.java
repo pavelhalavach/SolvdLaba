@@ -16,8 +16,9 @@ public class PhoneNumberOperator {
         Iterator<Request> it = requests.iterator();
         HashSet<String> listOfPhones = new HashSet<>();
         while(it.hasNext()){
-            if (it.next().getClient().getPhone() != null){
-                listOfPhones.add(it.next().getClient().getPhone());
+            Request copy = it.next();
+            if (copy.getClient().getPhone() != null){
+                listOfPhones.add(copy.getClient().getPhone());
             }
         }
         return listOfPhones;

@@ -15,21 +15,21 @@ public class Accounting implements IncomeGettable {
         bill = 0.26f;
     }
     private float income;
-    private static final Logger logger = LogManager.getRootLogger();
-//    private static final Logger logger_err = LogManager.getLogger("errors");
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     protected Accounting() {
     }
 
     @Override
     public float getIncomeAfterBills(Set<Request> requests, Assistant assistant){
-        logger.trace("Executing Accounting.getIncomeAfterBills()");
+        loggerRoot.trace("Executing Accounting.getIncomeAfterBills()");
         try {
             calculateIncome(requests, assistant);
         } catch (NoRequestsException e) {
             logger.error(e.getMessage());
         }
-        logger.trace("Closing Accounting.getIncomeAfterBills()");
+        loggerRoot.trace("Closing Accounting.getIncomeAfterBills()");
         return income * (1 - bill);
     }
 

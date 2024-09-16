@@ -15,9 +15,9 @@ public class TaxiPark implements DriversReceivable {
     private Accounting accounting;
     private Set<Request> requests;
     private final AdvertisingDepartment advertisingDepartment;
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
-    private static final Logger logger = LogManager.getRootLogger();
-//    private static final Logger logger_err = LogManager.getLogger("errors");
     public TaxiPark(String location, Assistant assistant, Set<Request> requests) {
         this.location = location;
         this.assistant = assistant;
@@ -32,7 +32,7 @@ public class TaxiPark implements DriversReceivable {
 
     @Override
     public void printAllDrivers(){
-        logger.trace("Executing taxiPark.printAllDrivers()");
+        loggerRoot.trace("Executing taxiPark.printAllDrivers()");
         try {
             logger.info("Drivers in the TaxiPark:");
             for (var driver : getAllDrivers()){
@@ -41,7 +41,7 @@ public class TaxiPark implements DriversReceivable {
         } catch (NoDriversException e) {
             logger.error(e.getMessage());
         }
-        logger.trace("Closing taxiPark.printAllDrivers()");
+        loggerRoot.trace("Closing taxiPark.printAllDrivers()");
     }
 
     @Override
@@ -57,12 +57,13 @@ public class TaxiPark implements DriversReceivable {
     }
 
     public void sendPromotionsToClients(String message){
+        logger.info("Advertising Department in TaxiPark " + this);
         advertisingDepartment.requestPhoneNumbers(requests);
         advertisingDepartment.sendPromotionToAll(message);
     }
 
     public void printPricesByDate(){
-        logger.trace("Executing taxiPark.printPricesByDate()");
+        loggerRoot.trace("Executing taxiPark.printPricesByDate()");
         try {
             HashMap<String, Float> map = getPricesByDate();
             logger.info("Time and price of requests in " + this);
@@ -75,7 +76,7 @@ public class TaxiPark implements DriversReceivable {
         } catch (NoRequestsException e) {
             logger.error(e.getMessage());
         }
-        logger.trace("Closing taxiPark.printPricesByDate()");
+        loggerRoot.trace("Closing taxiPark.printPricesByDate()");
     }
 
     private HashMap<String, Float> getPricesByDate() throws NoRequestsException {
@@ -146,5 +147,9 @@ public class TaxiPark implements DriversReceivable {
 
     public void setAccounting(Accounting accounting) {
         this.accounting = accounting;
+    }
+
+    public AdvertisingDepartment getAdvertisingDepartment() {
+        return advertisingDepartment;
     }
 }

@@ -10,21 +10,21 @@ import java.util.ArrayList;
 
 public abstract class AppUser extends Person implements RatingOperatable {
     private ArrayList<Rating> ratings;
-    private static final Logger logger = LogManager.getRootLogger();
-//    private static final Logger logger_err = LogManager.getLogger("errors");
+    private static final Logger logger = LogManager.getLogger("taxi");
+    private static final Logger loggerRoot = LogManager.getRootLogger();
 
     public AppUser(String name, String surname) {
         super(name, surname);
     }
     @Override
     public void printAvgRating() {
-        logger.trace("Executing AppUser.printAvgRating()");
+        loggerRoot.trace("Executing AppUser.printAvgRating()");
         try {
             logger.info("The average rating is " + calculateAvgRating());
         } catch (NoRatingException e) {
             logger.error(e.getMessage());
         }
-        logger.trace("Closing AppUser.printAvgRating()");
+        loggerRoot.trace("Closing AppUser.printAvgRating()");
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class AppUser extends Person implements RatingOperatable {
         for (var rating : ratings) {
             sum += rating.getMark();
         }
-        return (float) (sum / ratings.size());
+        return ((float) sum / ratings.size());
     }
 
     @Override
