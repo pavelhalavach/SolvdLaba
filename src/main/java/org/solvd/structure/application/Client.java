@@ -14,22 +14,28 @@ public final class Client extends AppUser {
     private static final Logger logger = LogManager.getRootLogger();
 //    private static final Logger logger_err = LogManager.getLogger("errors");
 
-    public Client(String name, String surname) {
+    public Client(String name, String surname, String phone) {
         super(name, surname);
+        this.phone = phone;
     }
 
     @Override
     public String toString() {
         return "{" + getName() +
                 " " + getSurname() +
+                " " + getPhone() +
                 "}";
     }
 
     @Override
-    public void printRatings() throws NoRatingException {
+    public void printRatings() {
         logger.trace("Executing client.printRatings()");
-        if (getRatings() == null) throw new NoRatingException();
-        logger.info("Rating for " + getName() + " " + getSurname());
+        if (getRatings() == null) try {
+            throw new NoRatingException(this);
+        } catch (NoRatingException e) {
+            logger.error(e.getMessage());
+        }
+        logger.info("Rating for client " + getName() + " " + getSurname());
         for (var rating : getRatings()){
             logger.info(rating);
         }
@@ -42,12 +48,14 @@ public final class Client extends AppUser {
         if (!(o instanceof Client client)) return false;
         return Objects.equals(getName(), client.getName()) &&
                 Objects.equals(getSurname(), client.getSurname()) &&
-                Objects.equals(getRatings(), client.getRatings());
+                Objects.equals(getRatings(), client.getRatings()) &&
+                Objects.equals(getPhone(), client.getPhone()
+                );
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getName(), getSurname());
+        int result = Objects.hash(getName(), getSurname(), getPhone());
         result = 31 * result + Objects.hashCode(getRatings());
         return result;
     }

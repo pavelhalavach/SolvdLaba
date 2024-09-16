@@ -46,7 +46,7 @@ public abstract class AppUser extends Person implements RatingOperatable {
     }
 
     @Override
-    public abstract void printRatings() throws NoRatingException;
+    public abstract void printRatings();
 
 
     public ArrayList<Rating> getRatings() {

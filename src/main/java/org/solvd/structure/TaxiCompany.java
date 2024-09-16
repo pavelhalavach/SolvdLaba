@@ -46,7 +46,7 @@ public class TaxiCompany implements DriversReceivable {
             try {
                 drivers.addAll(taxiPark.getAllDrivers());
             } catch (NoDriversException e) {
-                logger_err.error(e.getMessage() + taxiPark);
+                logger.error(e.getMessage());
             }
         }
         return drivers;

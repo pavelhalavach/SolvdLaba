@@ -1,4 +1,6 @@
 package main.java.org.solvd.structure.application;
+
+import main.java.org.solvd.structure.CustomLinkedList;
 import main.java.org.solvd.structure.exceptions.NoRatingException;
 import main.java.org.solvd.structure.interfaces.RatingPrintable;
 import main.java.org.solvd.structure.taxipark.Driver;
@@ -6,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Request implements RatingPrintable {
@@ -18,15 +19,16 @@ public class Request implements RatingPrintable {
     private LocalDateTime date;
     private Rating driverFeedback;
     private Rating clientFeedback;
+    private final FeedbackOperator feedbackOperator;
 
     private static final Logger logger = LogManager.getRootLogger();
-//    private static final Logger logger_err = LogManager.getLogger("errors");
 
     public Request(Client client, Driver driver, Path path, boolean wantFeedback) {
         this.client = client;
         this.driver = driver;
         this.path = path;
         this.date = LocalDateTime.now();
+        this.feedbackOperator = new FeedbackOperator();
         setPrice();
 
         if (wantFeedback) {
@@ -36,7 +38,7 @@ public class Request implements RatingPrintable {
     }
 
     public void setFeedback(){
-        ArrayList<Rating> ratings = FeedbackOperator.collectFeedback(client, driver);
+        CustomLinkedList<Rating> ratings = feedbackOperator.collectFeedback(client, driver);
         clientFeedback = ratings.get(0);
         driverFeedback = ratings.get(1);
     }

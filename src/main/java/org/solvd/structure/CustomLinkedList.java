@@ -1,5 +1,7 @@
 package main.java.org.solvd.structure;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 
 public class CustomLinkedList<E> implements List<E>, Iterable<E> {
@@ -36,7 +38,7 @@ public class CustomLinkedList<E> implements List<E>, Iterable<E> {
             currEl = currEl.next;
         }
         res += "]";
-        res = res.replace(", ]", "]");
+        res = StringUtils.replace(res,", ]", "]");
         return res;
     }
 

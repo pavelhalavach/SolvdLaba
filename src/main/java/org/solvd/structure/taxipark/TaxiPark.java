@@ -1,13 +1,12 @@
 package main.java.org.solvd.structure.taxipark;
 
+import main.java.org.solvd.structure.application.Request;
 import main.java.org.solvd.structure.exceptions.NoDriversException;
 import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.DriversReceivable;
-import main.java.org.solvd.structure.application.Request;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class TaxiPark implements DriversReceivable {
@@ -15,6 +14,7 @@ public class TaxiPark implements DriversReceivable {
     private Assistant assistant;
     private Accounting accounting;
     private Set<Request> requests;
+    private final AdvertisingDepartment advertisingDepartment;
 
     private static final Logger logger = LogManager.getRootLogger();
 //    private static final Logger logger_err = LogManager.getLogger("errors");
@@ -23,6 +23,7 @@ public class TaxiPark implements DriversReceivable {
         this.assistant = assistant;
         this.requests = requests;
         this.accounting = new Accounting();
+        this.advertisingDepartment = new AdvertisingDepartment();
     }
 
     public float calculateIncomeAfterBills(){
@@ -38,7 +39,7 @@ public class TaxiPark implements DriversReceivable {
                 logger.info(driver.getName() + " " + driver.getSurname());
             }
         } catch (NoDriversException e) {
-            logger.error(e.getMessage() + this);
+            logger.error(e.getMessage());
         }
         logger.trace("Closing taxiPark.printAllDrivers()");
     }
@@ -46,13 +47,18 @@ public class TaxiPark implements DriversReceivable {
     @Override
     public Set<Driver> getAllDrivers() throws NoDriversException {
         if (requests == null){
-            throw new NoDriversException();
+            throw new NoDriversException(this);
         }
         Set<Driver> drivers = new HashSet<>();
         for (var request : requests){
             drivers.add(request.getDriver());
         }
         return drivers;
+    }
+
+    public void sendPromotionsToClients(String message){
+        advertisingDepartment.requestPhoneNumbers(requests);
+        advertisingDepartment.sendPromotionToAll(message);
     }
 
     public void printPricesByDate(){
