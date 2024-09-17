@@ -56,10 +56,9 @@ public class TaxiPark implements DriversReceivable {
         return drivers;
     }
 
-    public void sendPromotionsToClients(String message){
+    public void sendPromotionsToClients(){
         logger.info("Advertising Department in TaxiPark " + this);
-        advertisingDepartment.requestPhoneNumbers(requests);
-        advertisingDepartment.sendPromotionToAll(message);
+        advertisingDepartment.sendPromotionToAll(requests);
     }
 
     public void printPricesByDate(){

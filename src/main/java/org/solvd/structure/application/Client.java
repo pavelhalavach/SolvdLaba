@@ -1,6 +1,7 @@
 package main.java.org.solvd.structure.application;
 
 import main.java.org.solvd.structure.AppUser;
+import main.java.org.solvd.structure.enums.ClientStatus;
 import main.java.org.solvd.structure.exceptions.NoRatingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,12 +12,15 @@ import java.util.Scanner;
 
 public final class Client extends AppUser {
     private String phone;
+    private ClientStatus clientStatus;
+    private float moneySpent;
     private static final Logger logger = LogManager.getLogger("taxi");
     private static final Logger loggerRoot = LogManager.getRootLogger();
 
     public Client(String name, String surname, String phone) {
         super(name, surname);
         this.phone = phone;
+        this.clientStatus = ClientStatus.BASIC;
     }
 
     @Override
@@ -68,4 +72,19 @@ public final class Client extends AppUser {
         this.phone = phone;
     }
 
+    public ClientStatus getClientStatus() {
+        return clientStatus;
+    }
+
+    public void setClientStatus(ClientStatus clientStatus) {
+        this.clientStatus = clientStatus;
+    }
+
+    public float getMoneySpent() {
+        return moneySpent;
+    }
+
+    public void setMoneySpent(float moneySpent) {
+        this.moneySpent += moneySpent;
+    }
 }

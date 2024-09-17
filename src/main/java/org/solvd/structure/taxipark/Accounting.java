@@ -1,5 +1,6 @@
 package main.java.org.solvd.structure.taxipark;
 
+import main.java.org.solvd.structure.enums.Currency;
 import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.IncomeGettable;
 import main.java.org.solvd.structure.application.Request;
@@ -10,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Accounting implements IncomeGettable {
-    private static float bill = 0.26f;
+    private static float bill;
     static {
         bill = 0.26f;
     }

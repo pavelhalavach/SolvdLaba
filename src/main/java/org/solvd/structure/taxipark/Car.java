@@ -1,24 +1,27 @@
 package main.java.org.solvd.structure.taxipark;
 
+import main.java.org.solvd.structure.enums.CarModel;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Car {
     private static int counter;
-    private String brandName;
+    private CarModel carModel;
     private String plateNumber;
     private LocalDate registrationDateOfPlate;
 
-    public Car(String brandName, String plateNumber, LocalDate registrationDateOfPlate) {
+
+    public Car(CarModel carModel, String plateNumber, LocalDate registrationDateOfPlate) {
         counter++;
-        this.brandName = brandName;
+        this.carModel = carModel;
         this.plateNumber = plateNumber;
         this.registrationDateOfPlate = registrationDateOfPlate;
     }
 
     @Override
     public String toString() {
-        return "{brandName: " + brandName +
+        return "{brandName: " + carModel +
                 ", plateNumber: " + plateNumber +
                 ", registrationDateOfPlate: " + registrationDateOfPlate + "}";
     }
@@ -28,20 +31,20 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return Objects.equals(brandName, car.brandName) && Objects.equals(plateNumber, car.plateNumber) && Objects.equals(registrationDateOfPlate, car.registrationDateOfPlate);
+        return Objects.equals(carModel, car.carModel) && Objects.equals(plateNumber, car.plateNumber) && Objects.equals(registrationDateOfPlate, car.registrationDateOfPlate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brandName, plateNumber, registrationDateOfPlate);
+        return Objects.hash(carModel, plateNumber, registrationDateOfPlate);
     }
 
-    public String getBrandName() {
-        return brandName;
+    public CarModel getCarModel() {
+        return carModel;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
     }
 
     public String getPlateNumber() {
