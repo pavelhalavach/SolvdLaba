@@ -8,9 +8,10 @@ import main.java.org.solvd.structure.taxipark.Driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class FeedbackOperator implements FeedbackCollectable {
     public FeedbackOperator(){
@@ -21,24 +22,30 @@ public class FeedbackOperator implements FeedbackCollectable {
     @Override
     public CustomLinkedList<Rating> collectFeedback(Client client, Driver driver){
         CustomLinkedList<Rating> ratings = new CustomLinkedList<>();
-        ratings.add(askForFeedback(client));
-        ratings.add(askForFeedback(driver));
+        ratings.add(askForFeedback(client, mark -> mark < 1 || mark > 5, (Consumer<AppUser>) user -> {
+            loggerRoot.trace("Executing FeedbackOperator.askForFeedback()");
+            logger.info("Hello, client "  + user.getName() + " " + user.getSurname());
+            logger.info("Please give us a feedback about your driver");
+            logger.info("Firstly, put your mark");
+        }));
+        ratings.add(askForFeedback(driver, mark -> mark < 1 || mark > 5, (Consumer<AppUser>) user -> {
+            loggerRoot.trace("Executing FeedbackOperator.askForFeedback()");
+            logger.info("Hello, driver "  + user.getName() + " " + user.getSurname());
+            logger.info("Please give us a feedback about your client");
+            logger.info("Firstly, put your mark");
+        }));
         return ratings;
     }
 
     @Override
-    public Rating askForFeedback(AppUser user){
-        loggerRoot.trace("Executing FeedbackOperator.askForFeedback()");
-        logger.info("Hello, "  + user.getName() + " " + user.getSurname());
-        logger.info("Please give us a feedback about your drive");
-        logger.info("Firstly, put your mark");
-        Scanner input;
+    public Rating askForFeedback(AppUser user, Predicate<Integer> tester, Consumer<AppUser> block){
+        block.accept(user);
+        Scanner input = new Scanner(System.in);
         int mark;
         while(true){
             try{
-                input = new Scanner(System.in);
                 mark = input.nextInt();
-                if (mark < 1 || mark > 5) throw new IncorrectMarkException();
+                if (tester.test(mark)) throw new IncorrectMarkException();
                 break;
             } catch (IncorrectMarkException e){
                 logger.error(e.getMessage());
@@ -51,7 +58,6 @@ public class FeedbackOperator implements FeedbackCollectable {
         input.nextLine();
         String comment = input.nextLine();
         loggerRoot.trace("Closing FeedbackOperator.askForFeedback()");
-
         return new Rating(comment, mark);
     }
 }

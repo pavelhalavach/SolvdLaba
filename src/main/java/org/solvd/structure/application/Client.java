@@ -40,9 +40,10 @@ public final class Client extends AppUser {
             logger.error(e.getMessage());
         }
         logger.info("Rating for client " + getName() + " " + getSurname());
-        for (var rating : getRatings()){
-            logger.info(rating);
-        }
+        getRatings().stream().forEach(rating -> logger.info(rating));
+//        for (var rating : getRatings()){
+//            logger.info(rating);
+//        }
         loggerRoot.trace("Closing client.printRatings()");
     }
 

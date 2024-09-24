@@ -1,6 +1,6 @@
 package main.java.org.solvd.structure.exceptions;
 
-public class NoRequestsException extends Exception{
+public class NoRequestsException extends RuntimeException{
     public NoRequestsException(Object object) {
         super("List of requests is empty in the " + object);
     }

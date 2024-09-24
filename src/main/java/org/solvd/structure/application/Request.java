@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class Request implements RatingPrintable {
@@ -36,15 +37,15 @@ public class Request implements RatingPrintable {
         this.priceCurrency = priceCurrency;
         setPrice();
         this.client.setMoneySpent(getPrice());
-
         if (wantFeedback) {
             logger.info(this);
             setFeedback();
         }
+        this.driver.updateDriverStatus();
     }
 
     public void setFeedback(){
-        CustomLinkedList<Rating> ratings = feedbackOperator.collectFeedback(client, driver);
+        List<Rating> ratings = feedbackOperator.collectFeedback(client, driver);
         clientFeedback = ratings.get(0);
         driverFeedback = ratings.get(1);
         client.addRating(driverFeedback);

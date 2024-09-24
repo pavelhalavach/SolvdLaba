@@ -14,6 +14,7 @@ public class TaxiPark implements DriversReceivable {
     private Assistant assistant;
     private Accounting accounting;
     private Set<Request> requests;
+    private Map<String, Float> pricesByDate;
     private final AdvertisingDepartment advertisingDepartment;
     private static final Logger logger = LogManager.getLogger("taxi");
     private static final Logger loggerRoot = LogManager.getRootLogger();
@@ -35,9 +36,11 @@ public class TaxiPark implements DriversReceivable {
         loggerRoot.trace("Executing taxiPark.printAllDrivers()");
         try {
             logger.info("Drivers in the TaxiPark:");
-            for (var driver : getAllDrivers()){
-                logger.info(driver.getName() + " " + driver.getSurname());
-            }
+            getAllDrivers().stream()
+                    .forEach(driver -> logger.info(driver.getName() + " " + driver.getSurname()));
+//            for (var driver : getAllDrivers()){
+//                logger.info(driver.getName() + " " + driver.getSurname());
+//            }
         } catch (NoDriversException e) {
             logger.error(e.getMessage());
         }
@@ -50,9 +53,10 @@ public class TaxiPark implements DriversReceivable {
             throw new NoDriversException(this);
         }
         Set<Driver> drivers = new HashSet<>();
-        for (var request : requests){
-            drivers.add(request.getDriver());
-        }
+        requests.stream().forEach(request -> drivers.add(request.getDriver()));
+//        for (var request : requests){
+//            drivers.add(request.getDriver());
+//        }
         return drivers;
     }
 
@@ -64,28 +68,38 @@ public class TaxiPark implements DriversReceivable {
     public void printPricesByDate(){
         loggerRoot.trace("Executing taxiPark.printPricesByDate()");
         try {
-            HashMap<String, Float> map = getPricesByDate();
+            Map<String, Float> map = getPricesByDate();
             logger.info("Time and price of requests in " + this);
-            for (Map.Entry<String, Float> kv : map.entrySet()){
+
+            map.entrySet().stream().forEach(kv -> {
                 String uncut = kv.getKey();
                 String regex = " ";
                 String[] arr = uncut.split(regex);
                 logger.info(arr[1] + " : " + kv.getValue());
-            }
+            });
+//            for (Map.Entry<String, Float> kv : map.entrySet()){
+//                String uncut = kv.getKey();
+//                String regex = " ";
+//                String[] arr = uncut.split(regex);
+//                logger.info(arr[1] + " : " + kv.getValue());
+//            }
         } catch (NoRequestsException e) {
             logger.error(e.getMessage());
         }
         loggerRoot.trace("Closing taxiPark.printPricesByDate()");
     }
 
-    private HashMap<String, Float> getPricesByDate() throws NoRequestsException {
+    private Map<String, Float> getPricesByDate() throws NoRequestsException {
         if (requests == null){
             throw new NoRequestsException(this);
         }
-        HashMap<String, Float> map = new HashMap<>();
-        for (var request : requests){
-            map.put(request.hashCode() + " " + request.getDate(), request.getPrice());
-        }
+        Map<String, Float> map = new HashMap<>();
+        requests.stream()
+                .forEach(request -> map.put(request.hashCode() + " " + request.getDate(), request.getPrice()));
+//        for (var request : requests){
+//            map.put(request.hashCode() + " " + request.getDate(), request.getPrice());
+//        }
+        this.pricesByDate = map;
         return map;
     }
     @Override
@@ -116,8 +130,8 @@ public class TaxiPark implements DriversReceivable {
         return result;
     }
 
-    public Set<Request> getRequests() {
-        return requests;
+    public Optional<Set<Request>> getRequests() {
+        return Optional.ofNullable(requests);
     }
 
     public void setRequests(Set<Request> requests) {

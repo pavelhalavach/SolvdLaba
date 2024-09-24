@@ -7,9 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AppUser extends Person implements RatingOperatable {
-    private ArrayList<Rating> ratings;
+    private List<Rating> ratings;
     private static final Logger logger = LogManager.getLogger("taxi");
     private static final Logger loggerRoot = LogManager.getRootLogger();
 
@@ -32,11 +33,14 @@ public abstract class AppUser extends Person implements RatingOperatable {
         if (ratings == null) {
             throw new NoRatingException();
         }
-        int sum = 0;
-        for (var rating : ratings) {
-            sum += rating.getMark();
-        }
-        return ((float) sum / ratings.size());
+//        int sum = 0;
+//        for (var rating : ratings) {
+//            sum += rating.getMark();
+//        }
+        return (float) ratings
+                .stream()
+                .mapToInt(rating -> rating.getMark())
+                .average().getAsDouble()                ;
     }
 
     @Override
@@ -49,11 +53,11 @@ public abstract class AppUser extends Person implements RatingOperatable {
     public abstract void printRatings();
 
 
-    public ArrayList<Rating> getRatings() {
+    public List<Rating> getRatings() {
         return ratings;
     }
 
-    public void setRatings(ArrayList<Rating> ratings) {
+    public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
 }

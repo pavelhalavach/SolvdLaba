@@ -7,7 +7,6 @@ import main.java.org.solvd.structure.taxipark.TaxiPark;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -34,22 +33,31 @@ public class TaxiCompany implements DriversReceivable {
     public void printAllDrivers(){
         loggerRoot.trace("Executing taxiCompany.printAllDrivers()");
         logger.info("Drivers in the Company:");
-        for (var driver : getAllDrivers()){
-            logger.info(driver.getName() + " " + driver.getSurname());
-        }
+        getAllDrivers().stream().forEach(driver -> logger.info(driver.getName() + " " + driver.getSurname()));
+//        for (var driver : getAllDrivers()){
+//            logger.info(driver.getName() + " " + driver.getSurname());
+//        }
         loggerRoot.trace("Closing taxiCompany.printAllDrivers()");
     }
 
     @Override
     public Set<Driver> getAllDrivers() {
         Set<Driver> drivers = new HashSet<>();
-        for (var taxiPark : taxiParks) {
-            try {
-                drivers.addAll(taxiPark.getAllDrivers());
-            } catch (NoDriversException e) {
-                logger.error(e.getMessage());
-            }
-        }
+        taxiParks.stream()
+                .forEach(taxiPark -> {
+                    try {
+                        drivers.addAll(taxiPark.getAllDrivers());
+                    } catch (NoDriversException e) {
+                        logger.error(e.getMessage());
+                    }
+                });
+//        for (var taxiPark : taxiParks) {
+//            try {
+//                drivers.addAll(taxiPark.getAllDrivers());
+//            } catch (NoDriversException e) {
+//                logger.error(e.getMessage());
+//            }
+//        }
         return drivers;
 
     }
@@ -60,11 +68,13 @@ public class TaxiCompany implements DriversReceivable {
     }
 
     private float calculateTotalIncomeAfterBills(){
-        float income = 0;
-        for (var taxiPark : taxiParks){
-            income += taxiPark.calculateIncomeAfterBills();
-        }
-        return income;
+//        float income = 0;
+//        for (var taxiPark : taxiParks){
+//            income += taxiPark.calculateIncomeAfterBills();
+//        }
+//        return income;
+        return (float) taxiParks.stream()
+                .mapToDouble(taxiPark -> taxiPark.calculateIncomeAfterBills()).sum();
     }
 
     @Override

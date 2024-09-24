@@ -1,6 +1,5 @@
 package main.java.org.solvd.structure.taxipark;
 
-import main.java.org.solvd.structure.enums.Currency;
 import main.java.org.solvd.structure.exceptions.NoRequestsException;
 import main.java.org.solvd.structure.interfaces.IncomeGettable;
 import main.java.org.solvd.structure.application.Request;
@@ -9,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class Accounting implements IncomeGettable {
     private static float bill;
@@ -26,7 +26,7 @@ public class Accounting implements IncomeGettable {
     public float getIncomeAfterBills(Set<Request> requests, Assistant assistant){
         loggerRoot.trace("Executing Accounting.getIncomeAfterBills()");
         try {
-            calculateIncome(requests, assistant);
+            calculateIncome(requests, assistant, () -> Driver.getPercentage());
         } catch (NoRequestsException e) {
             logger.error(e.getMessage());
         }
@@ -35,19 +35,21 @@ public class Accounting implements IncomeGettable {
     }
 
     @Override
-    public void calculateIncome(Set<Request> requests, Assistant assistant) throws NoRequestsException {
+    public void calculateIncome(Set<Request> requests, Assistant assistant, Supplier<Float> supplier) throws NoRequestsException {
         float income = assistant.getSalary();
         if (requests == null){
             this.income = income;
             throw new NoRequestsException();
         }
         else{
-            for (var request : requests){
-                income += request.getPrice() * (1 - Driver.getPercentage());
-            }
-            this.income = income;
+            this.income = (float) requests.stream()
+                    .mapToDouble(request -> request.getPrice() * (1 - supplier.get()))
+                    .sum();
+//            for (var request : requests){
+//                income += request.getPrice() * (1 - supplier.get());
+//            }
+//            this.income = income;
         }
-
     }
 
     @Override
