@@ -77,8 +77,6 @@ public class Main {
         logger.info("Average rating of the client:");
         request6.getClient().printAvgRating();
 
-
-
         logger.info("REFLECTION");
         Class<? extends Request> reqClass = request6.getClass();
         Class<? extends Client> clientClass = client3.getClass();
