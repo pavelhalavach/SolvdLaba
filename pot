@@ -1,0 +1,107 @@
+[33mcommit 560129af2d7eec7a4eba6946ea2b12669fc99a11[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mnew_branch[m[33m)[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Thu Sep 26 21:15:16 2024 +0200
+
+    adding plugins
+
+[33mcommit f20674664ddccc3435afb844c42de4162967f315[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Tue Sep 24 15:51:05 2024 +0200
+
+    update
+
+[33mcommit 0d95959af256ac276c16b615785f27ac8538cea3[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Tue Sep 24 06:59:05 2024 +0200
+
+    streams and lambdas done
+
+[33mcommit b6cc10ba568fb75b8546767bac09c1e01f813b54[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Tue Sep 17 16:10:14 2024 +0200
+
+    working on enums
+
+[33mcommit 6a4773ffa1023b53ca266d5c69146bb457a89b3a[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Mon Sep 16 11:14:15 2024 +0200
+
+    changed main
+
+[33mcommit af53dd8fc8c99dcb6dc9f4ece8a5d142b8ff7a4d[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Mon Sep 16 10:24:49 2024 +0200
+
+    working on details, stringutils and main
+
+[33mcommit 7ff5d46c5fc4239b0be962ea9c3b506944d41ebb[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Mon Sep 16 04:26:07 2024 +0200
+
+    corrected logger
+
+[33mcommit cd3efd527a1e8f194a6146744fcb5c0ea1ce931d[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Sun Sep 15 06:45:29 2024 +0200
+
+    generics hm
+
+[33mcommit c2ed849dc938a97b13dd623792ad7a9d6b9a999b[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Thu Sep 12 05:49:07 2024 +0200
+
+    homework generics collections almost done
+
+[33mcommit 51f0a5e905b35441349ab4ecc7a7bd8780c05d98[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Fri Sep 6 00:30:50 2024 +0200
+
+    working on main
+
+[33mcommit ebbaac4a9eb9d5c273da7a25377a9849f487c376[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Thu Sep 5 23:44:07 2024 +0200
+
+    update
+
+[33mcommit dc9ce98f7ce7099a66e08e6c7291a9c722c62f13[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Thu Sep 5 00:09:54 2024 +0200
+
+    continuing work
+
+[33mcommit 64c188d88e46571f8277b34a7097bf7a2f0f8254[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Wed Sep 4 22:37:37 2024 +0200
+
+    logger + collections
+
+[33mcommit 071adf7dde2755b1c390225a3648d7f87c2e9650[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Tue Sep 3 23:48:21 2024 +0200
+
+    working on exceptions
+
+[33mcommit 161a2a39f586275ab08147bee43e67284a07e6d6[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Tue Sep 3 17:07:24 2024 +0200
+
+    add package interfaces
+
+[33mcommit c6ebabbb26d29a47fa3ee95942926804d974d0fa[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Tue Sep 3 12:43:09 2024 +0200
+
+    turning project to maven structure
+
+[33mcommit db192259fcc5b038e2ec2e04cd385c8532993a81[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Sun Aug 25 23:38:30 2024 +0200
+
+    homework3
+
+[33mcommit 4f5f21fd524897cfb7ca4dbee8d0c0a18091216d[m
+Author: pavel halavach <p.halavach@student.uw.edu.pl>
+Date:   Sun Aug 25 19:35:43 2024 +0200
+
+    rebuilding project

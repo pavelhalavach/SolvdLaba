@@ -7,7 +7,10 @@ import main.java.org.solvd.structure.interfaces.DriversReceivable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class TaxiPark implements DriversReceivable {
     private String location;
@@ -102,6 +105,14 @@ public class TaxiPark implements DriversReceivable {
         this.pricesByDate = map;
         return map;
     }
+
+    private float getPriceByDate(String str_date){
+        LocalDateTime date = LocalDateTime.parse(str_date);
+        return (float) requests.stream()
+                .filter(request -> request.getDate() == date)
+                .mapToDouble(Request::getPrice).sum();
+    }
+
     @Override
     public String toString() {
         return "TaxiPark{" +

@@ -2,6 +2,8 @@ package main.java.org.solvd.structure.threads;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -57,28 +59,34 @@ public class ConnectionPool {
 
 
     public static void main(String[] args) {
-        ConnectionPool connectionPool = new ConnectionPool(5, "abc");
-        ThreadPoolExecutor executor =(ThreadPoolExecutor) Executors.newFixedThreadPool(7);
-        for (int i = 0; i < 7; i++) {
-            executor.execute(() -> {
-                while (connectionPool.isAvailableConnectionsSizeEmpty() &&
-                        !connectionPool.isConnectionsInUseSizeEmpty()) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                connectionPool.getConnection();
+        ConnectionPool connectionPool = new ConnectionPool(5, "");
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        CompletableFuture<Void>[] futures = new CompletableFuture[7];
+        MyThread thread = new MyThread();
+
+        for (int i = 1; i < 8; i++) {
+            final int taskId = i;
+            futures[i-1] = CompletableFuture.supplyAsync(() -> {
+                Connection connection = null;
                 try {
+                    connection = connectionPool.getConnection();
+                    System.out.println("Task " + taskId + " is using a connection.");
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    return "Task " + taskId + " completed.";
+                } catch (InterruptedException | RuntimeException e) {
+                    e.printStackTrace();
+                    return "Task " + taskId + " failed.";
+                } finally {
+                    connectionPool.releaseConnection();
+                    System.out.println("Task " + taskId + " returned the connection.");
                 }
-                connectionPool.releaseConnection();
-                System.out.println("thread finished");
-            });
+            }, executorService).thenAccept(System.out::println);
         }
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures);
+        allOf.join();
+        executorService.shutdown();
+        System.out.println("All connections closed.");
 
 
 
