@@ -12,10 +12,18 @@ public class ConnectionPool {
     private final String url;
     private List<Connection> availableConnections;
     private List<Connection> connectionsInUse;
+    private static ConnectionPool INSTANCE;
 
-    public ConnectionPool(int size, String url) {
+    private ConnectionPool(int size, String url) {
         this.size = size;
         this.url = url;
+    }
+
+    public static ConnectionPool getInstance(int size, String url){
+        if (INSTANCE == null){
+            INSTANCE = new ConnectionPool(size, url);
+        }
+        return INSTANCE;
     }
 
     public synchronized Connection getConnection() {
@@ -59,7 +67,7 @@ public class ConnectionPool {
 
 
     public static void main(String[] args) {
-        ConnectionPool connectionPool = new ConnectionPool(5, "");
+        ConnectionPool connectionPool = ConnectionPool.getInstance(5, "url");
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         CompletableFuture<Void>[] futures = new CompletableFuture[7];
         MyThread thread = new MyThread();
